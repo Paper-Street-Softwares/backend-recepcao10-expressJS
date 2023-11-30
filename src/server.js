@@ -1,15 +1,19 @@
-import express from "express";
+import express, { request, response } from "express";
 import router from "./routers/routes.js";
 
 const app = express();
 
-app.use(express.json());
+app.use(express.static("public"));
 app.use(router);
 
-app.get("/", (request, response) => {
-  response
-    .status(200)
-    .send({ status: "ok", nameRoute: "http://localhost:3000/name" });
+// app.get("/", (request, response) => {
+//   response
+//     .status(200)
+//     .send({ status: "ok", nameRoute: "http://localhost:3000/name" });
+// });
+
+app.get("/info", (request, response) => {
+  response.status(200).json({ info: "Gabriel" });
 });
 
 app.listen(3000, () => {

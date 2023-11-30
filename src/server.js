@@ -11,5 +11,7 @@ app.get("/", (req, res) => {
 });
 
 app.listen(3000, () => {
-  console.log("Server is runing ok. Check http://localhost:3000");
+  console.log(
+    "Server is runing ok. Check https://recep10-expressjs.onrender.com/"
+  );
 });

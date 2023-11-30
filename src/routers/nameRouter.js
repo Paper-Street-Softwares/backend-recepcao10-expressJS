@@ -1,9 +1,10 @@
 import { Router } from "express";
+import NameController from "../controllers/nameController.js";
 
 const nameRouter = Router();
 
-nameRouter.get("/name", (req, res) => {
-  res.status(200).send({ status: "Name route ok" });
-});
+const nameController = new NameController();
+
+nameRouter.get("/name", nameController.get);
 
 export default nameRouter;

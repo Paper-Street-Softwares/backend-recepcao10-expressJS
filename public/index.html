@@ -8,15 +8,15 @@
   <body>
     <form>
       <input type="text" id="input" />
-      <button id="getBtn">GET</button>
-      <button id="postBtn">POST</button>
+      <button id="getBtn">BUSCAR NO BANCO</button>
+      <button id="postBtn">CADASTRAR NO BANCO</button>
     </form>
     <script>
       const getBtn = document.getElementById("getBtn");
       const postBtn = document.getElementById("postBtn");
       const input = document.getElementById("input");
 
-      const baseGetUrl = "http://localhost:3000/info";
+      const baseGetUrl = "http://localhost:3000/get";
       const basePostUrl = "http://localhost:3000/post";
 
       getBtn.addEventListener("click", getInfo);

@@ -12,8 +12,8 @@ app.use(router);
 //     .send({ status: "ok", nameRoute: "http://localhost:3000/name" });
 // });
 
-app.get("/info", (request, response) => {
-  response.status(200).json({ info: "Gabriel" });
+app.get("/get", (request, response) => {
+  response.status(200).json({ info: "Dudu" });
 });
 
 app.listen(3000, () => {

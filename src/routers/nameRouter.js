@@ -6,5 +6,6 @@ const nameRouter = Router();
 const nameController = new NameController();
 
 nameRouter.get("/name", nameController.findAll);
+nameRouter.post("/name", nameController.create);
 
 export default nameRouter;

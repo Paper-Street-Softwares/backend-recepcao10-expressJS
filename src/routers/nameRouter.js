@@ -5,6 +5,6 @@ const nameRouter = Router();
 
 const nameController = new NameController();
 
-nameRouter.get("/name", nameController.get);
+nameRouter.get("/name", nameController.findAll);
 
 export default nameRouter;

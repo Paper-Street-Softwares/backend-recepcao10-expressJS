@@ -1,8 +1,12 @@
 import { request, response } from "express";
 
 class NameController {
-  async get(request, response) {
-    response.status(200).json({ status: "Get controller ok" });
+  async findAll(request, response) {
+    response.status(200).json({ status: "Get/name ok" });
+  }
+
+  async create(request, response) {
+    response.status(201).json({ status: "Post/name ok" });
   }
 }
 

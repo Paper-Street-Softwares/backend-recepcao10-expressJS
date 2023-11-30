@@ -7,7 +7,9 @@ app.use(express.json());
 app.use(router);
 
 app.get("/", (request, response) => {
-  response.status(200).send({ status: "ok" });
+  response
+    .status(200)
+    .send({ status: "ok", nameRoute: "http://localhost:3000/name" });
 });
 
 app.listen(3000, () => {

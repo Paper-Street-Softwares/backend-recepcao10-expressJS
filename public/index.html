@@ -17,9 +17,10 @@
       const input = document.getElementById("input");
 
       const baseGetUrl = "http://localhost:3000/get";
-      const basePostUrl = "http://localhost:3000/post";
+      const basePostUrl = "http://localhost:3000";
 
       getBtn.addEventListener("click", getInfo);
+      postBtn.addEventListener("click", postInfo);
 
       async function getInfo(e) {
         e.preventDefault();
@@ -29,6 +30,22 @@
         console.log(res);
         const data = await res.json();
         input.value = data.info;
+      }
+
+      async function postInfo(e) {
+        e.preventDefault();
+        if (input.value == "") {
+          console.log("is empty");
+        }
+        const res = await fetch(basePostUrl, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            payload: input.value,
+          }),
+        });
       }
 
       async function postInfo() {}

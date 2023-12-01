@@ -1,5 +1,6 @@
 import { request, response } from "express";
 import { prismaClient } from "../app/db/prisma/prismaClient.js";
+import logger from "../app/logs/logger.js";
 
 class NameController {
   async findAll(request, response) {
@@ -19,13 +20,28 @@ class NameController {
 
   async create(request, response) {
     const { name } = request.body;
-    const newUser = await prismaClient.testName.create({
-      data: {
-        name,
-      },
-    });
 
-    return response.status(201).json(newUser);
+    try {
+      const foundUser = await prismaClient.testName.findFirst({
+        where: {
+          name,
+        },
+      });
+
+      if (foundUser) {
+        logger.error("User already created.");
+        return response.status(400).json({ error: "User already created." });
+      } else {
+        const newUser = await prismaClient.testName.create({
+          data: {
+            name,
+          },
+        });
+        return response.status(201).json(newUser);
+      }
+    } catch (err) {
+      logger.error("User already created.");
+    }
   }
 
   async update(request, response) {

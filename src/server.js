@@ -1,5 +1,6 @@
 import express from "express";
 import router from "./routers/routes.js";
+import logger from "./app/logs/logger.js";
 
 const app = express();
 
@@ -13,5 +14,5 @@ app.get("/", (request, response) => {
 });
 
 app.listen(3000, () => {
-  console.log("Server is runing ok. Check http://localhost:3000");
+  logger.info("Server is runing ok. Check http://localhost:3000");
 });

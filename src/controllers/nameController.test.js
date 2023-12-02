@@ -37,3 +37,13 @@ describe("/GET /name findAll()", () => {
     expect(res.statusCode).toEqual(200);
   });
 });
+
+describe("/GET /name/:id findOne()", () => {
+  it("Deve localizar todos os modelos na rota", async () => {
+    const res = await request(app).get(
+      "/name/74a247a6-dc40-4d48-8368-e41333b35aac"
+    );
+    expect(res.statusCode).toEqual(200);
+    expect(res.body.name).toBe("edison");
+  });
+});

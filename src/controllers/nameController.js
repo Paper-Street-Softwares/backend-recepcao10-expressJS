@@ -1,6 +1,6 @@
-import { request, response } from "express";
-import { prismaClient } from "../app/db/prisma/prismaClient.js";
-import logger from "../app/logs/logger.js";
+const { request, response } = require("express");
+const { prismaClient } = require("../app/db/prisma/prismaClient.js");
+const logger = require("../app/logs/logger.js");
 
 class NameController {
   async findAll(request, response) {
@@ -128,4 +128,4 @@ class NameController {
   }
 }
 
-export default NameController;
+module.exports = NameController;

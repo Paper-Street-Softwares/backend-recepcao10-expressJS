@@ -1,5 +1,4 @@
-import { pino } from "pino";
-import PinoPretty from "pino-pretty";
+const { pino } = require("pino");
 
 const logger = pino({
   transport: {
@@ -10,4 +9,4 @@ const logger = pino({
   },
 });
 
-export default logger;
+module.exports = logger;

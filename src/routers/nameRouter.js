@@ -1,5 +1,5 @@
-import { Router } from "express";
-import NameController from "../controllers/nameController.js";
+const { Router } = require("express");
+const NameController = require("../controllers/nameController.js");
 
 const nameRouter = Router();
 
@@ -11,4 +11,4 @@ nameRouter.post("/name", nameController.create);
 nameRouter.patch("/name/:id", nameController.update);
 nameRouter.delete("/name/:id", nameController.delete);
 
-export default nameRouter;
+module.exports = nameRouter;

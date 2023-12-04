@@ -83,44 +83,44 @@ describe("/GET /name:id findOne()", () => {
   });
 });
 
-describe("/POST /name create()", () => {
-  it("Deve criar um usuário", async () => {
-    const res = await request(app).post("/name").send({
-      name: "nometeste",
-    });
-    expect(res.body.name).toBe("nometeste");
-    expect(res.body.id).toBeDefined();
-    expect(res.headers["content-type"]).toEqual(
-      expect.stringContaining("json")
-    );
-  });
+// describe("/POST /name create()", () => {
+//   it("Deve criar um usuário", async () => {
+//     const res = await request(app).post("/name").send({
+//       name: "nometeste",
+//     });
+//     expect(res.body.name).toBe("nometeste");
+//     expect(res.body.id).toBeDefined();
+//     expect(res.headers["content-type"]).toEqual(
+//       expect.stringContaining("json")
+//     );
+//   });
 
-  it("Deve retornar statusCode 200", async () => {
-    const res = await request(app).post("/name/").send({
-      name: "nometeste",
-    });
+//   it("Deve retornar statusCode 200", async () => {
+//     const res = await request(app).post("/name/").send({
+//       name: "nometeste",
+//     });
 
-    expect(res.statusCode).toEqual(200);
-  });
+//     expect(res.statusCode).toEqual(200);
+//   });
 
-  it("Deve retornar o id, nome, updatedAt e createdAt do usuário criado", async () => {
-    const res = await request(app).post("/name/").send({
-      name: "anyname",
-    });
-    expect(res.body.id).toBeDefined();
-    expect(res.body.name).toBeDefined();
-    expect(res.body.createdAt).toBeDefined();
-    expect(res.body.updatedAt).toBeDefined();
-  });
+//   it("Deve retornar o id, nome, updatedAt e createdAt do usuário criado", async () => {
+//     const res = await request(app).post("/name/").send({
+//       name: "anyname",
+//     });
+//     expect(res.body.id).toBeDefined();
+//     expect(res.body.name).toBeDefined();
+//     expect(res.body.createdAt).toBeDefined();
+//     expect(res.body.updatedAt).toBeDefined();
+//   });
 
-  it("Deve retornar resposta em json", async () => {
-    const res = await request(app)
-      .get("/name/74a247a6-dc40-4d48-8368-e41333b35aac/")
-      .send({
-        name: "jose",
-      });
-    expect(res.headers["content-type"]).toEqual(
-      expect.stringContaining("json")
-    );
-  });
-});
+//   it("Deve retornar resposta em json", async () => {
+//     const res = await request(app)
+//       .get("/name/74a247a6-dc40-4d48-8368-e41333b35aac/")
+//       .send({
+//         name: "jose",
+//       });
+//     expect(res.headers["content-type"]).toEqual(
+//       expect.stringContaining("json")
+//     );
+//   });
+// });

@@ -5,11 +5,15 @@ const NameController = require("../controllers/nameController.js");
 const { prismaClient } = require("../app/db/prisma/prismaClient.js");
 const nameController = new NameController();
 
-// beforeEach(async () => {
-//   createUpdateUser = await request(app).post("/name/").send({
-//     name: "beforeUpdate",
-//   });
-// });
+beforeEach(async () => {
+  createUpdateUser = await request(app).post("/name/").send({
+    name: "beforeUpdate",
+  });
+
+  createToBeDeletedUser = await request(app).post("/name/").send({
+    name: "ToBeDeletedUser",
+  });
+});
 
 afterEach(async () => {
   const findUsuarioTest = await prismaClient.testName.findFirst({
@@ -28,21 +32,37 @@ afterEach(async () => {
     });
   }
 
-  // const findUpdateTest = await prismaClient.testName.findFirst({
-  //   where: {
-  //     name: "afterUpdate",
-  //   },
-  // });
+  const findUpdateTest = await prismaClient.testName.findFirst({
+    where: {
+      name: "afterUpdate",
+    },
+  });
 
-  // if (findUpdateTest) {
-  //   const { id } = findUpdateTest;
+  if (findUpdateTest) {
+    const { id } = findUpdateTest;
 
-  //   const deleteUsuarioTest = await prismaClient.testName.delete({
-  //     where: {
-  //       id,
-  //     },
-  //   });
-  // }
+    const deleteUsuarioTest = await prismaClient.testName.delete({
+      where: {
+        id,
+      },
+    });
+  }
+
+  const findUpdateTest2 = await prismaClient.testName.findFirst({
+    where: {
+      name: "beforeUpdate",
+    },
+  });
+
+  if (findUpdateTest2) {
+    const { id } = findUpdateTest2;
+
+    const deleteUsuarioTest = await prismaClient.testName.delete({
+      where: {
+        id,
+      },
+    });
+  }
 });
 
 // Testes de existência dos métodos executados pelo Controller
@@ -77,8 +97,6 @@ describe("/GET /name findAll()", () => {
     expect(res.statusCode).toEqual(200);
   });
 });
-
-// TESTE DE ROTA: /GET /name:id findOne()
 
 describe("/GET /name:id findOne()", () => {
   it("Deve encontrar o usuário pelo id e retornar ele em json", async () => {
@@ -142,6 +160,49 @@ describe("/POST /name create()", () => {
   });
 });
 
-// describe("/PATCH /name update()", () => {
-//   it("Deve alterar o nome do usuário informado no id", async () => {});
-// });
+describe("/PATCH /name update()", () => {
+  it("Deve alterar o nome do usuário informado no id", async () => {
+    const previousUser = await prismaClient.testName.findFirst({
+      where: {
+        name: "beforeUpdate",
+      },
+    });
+    const { id } = previousUser;
+
+    const res = await request(app).patch(`/name/${id}`).send({
+      name: "afterUpdate",
+    });
+    expect(res.body.name).toBe("afterUpdate");
+  });
+
+  it("Deve retornar statusCode 200", async () => {
+    const previousUser = await prismaClient.testName.findFirst({
+      where: {
+        name: "beforeUpdate",
+      },
+    });
+    const { id } = previousUser;
+
+    const res = await request(app).patch(`/name/${id}`).send({
+      name: "afterUpdate",
+    });
+    expect(res.statusCode).toBe(200);
+  });
+});
+
+describe("/DEL /name:id delete()", () => {
+  it("Deve deletar o usuário informado no id", async () => {
+    const userToBeDeleted = await prismaClient.testName.findFirst({
+      where: {
+        name: "ToBeDeletedUser",
+      },
+    });
+
+    console.log(userToBeDeleted);
+    const { id } = userToBeDeleted;
+    console.log(id);
+    const res = await request(app).delete(`/name/${id}`);
+
+    expect(res.statusCode).toEqual(200);
+  });
+});

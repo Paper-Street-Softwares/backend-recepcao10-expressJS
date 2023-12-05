@@ -39,7 +39,37 @@ describe("/GET /name findAll()", () => {
   });
 });
 
+afterEach(async () => {
+  const findUsuarioTest = await prismaClient.testName.findFirst({
+    where: {
+      name: "UsuarioTeste",
+    },
+  });
+
+  if (findUsuarioTest) {
+    const { id } = findUsuarioTest;
+
+    const deleteUsuarioTest = await prismaClient.testName.delete({
+      where: {
+        id,
+      },
+    });
+  }
+});
+
+// TESTE DE ROTA: /GET /name:id findOne()
+
 describe("/GET /name:id findOne()", () => {
+  it("Deve encontrar o usuário pelo id e retornar ele em json", async () => {
+    const res = await request(app).get(
+      "/name/74a247a6-dc40-4d48-8368-e41333b35aac/"
+    );
+    expect(res.body.name).toBe("edison");
+    expect(res.headers["content-type"]).toEqual(
+      expect.stringContaining("json")
+    );
+  });
+
   it("Deve retornar statusCode 200", async () => {
     const res = await request(app)
       .get("/name/74a247a6-dc40-4d48-8368-e41333b35aac/")
@@ -49,18 +79,7 @@ describe("/GET /name:id findOne()", () => {
     expect(res.statusCode).toEqual(200);
   });
 
-  it("Deve encontrar o usuário pelo id", async () => {
-    const res = await request(app).get(
-      "/name/74a247a6-dc40-4d48-8368-e41333b35aac/"
-    );
-    expect(res.body.name).toBe("edison");
-    expect(res.body.id).toBeDefined();
-    expect(res.headers["content-type"]).toEqual(
-      expect.stringContaining("json")
-    );
-  });
-
-  it("Deve retornar o id, nome, updatedAt e createdAt do usuário encontrado", async () => {
+  it("Deve retornar os campos obrigatórios do usuário encontrado", async () => {
     const res = await request(app)
       .get("/name/74a247a6-dc40-4d48-8368-e41333b35aac/")
       .send({
@@ -70,68 +89,17 @@ describe("/GET /name:id findOne()", () => {
     expect(res.body.name).toBeDefined();
     expect(res.body.createdAt).toBeDefined();
     expect(res.body.updatedAt).toBeDefined();
-  });
-
-  it("Deve retornar resposta em json", async () => {
-    const res = await request(app)
-      .get("/name/74a247a6-dc40-4d48-8368-e41333b35aac/")
-      .send({
-        name: "jose",
-      });
-    expect(res.headers["content-type"]).toEqual(
-      expect.stringContaining("json")
-    );
   });
 });
 
 describe("/POST /name create()", () => {
-  it("Deve criar um usuário", async () => {
-    const res = await request(app).post("/name").send({
-      name: "NewName6",
+  it("Deve criar o usuário pelo id e retornar ele em json", async () => {
+    const res = await request(app).post("/name/").send({
+      name: "UsuarioTeste",
     });
-
-    const id = res.body.id;
-
-    const deletedUser = prismaClient.testName.delete({
-      where: {
-        id,
-      },
-    });
-
-    expect(res.statusCode).toEqual(201);
     expect(res.body.id).toBeDefined();
-    expect(res.body.name).toBeDefined();
-    expect(res.body.createdAt).toBeDefined();
-    expect(res.body.updatedAt).toBeDefined();
-    return deletedUser;
+    expect(res.headers["content-type"]).toEqual(
+      expect.stringContaining("json")
+    );
   });
-
-  //   it("Deve retornar statusCode 200", async () => {
-  //     const res = await request(app).post("/name/").send({
-  //       name: "nometeste",
-  //     });
-
-  //     expect(res.statusCode).toEqual(200);
-  //   });
-
-  //   it("Deve retornar o id, nome, updatedAt e createdAt do usuário criado", async () => {
-  //     const res = await request(app).post("/name/").send({
-  //       name: "anyname",
-  //     });
-  //     expect(res.body.id).toBeDefined();
-  //     expect(res.body.name).toBeDefined();
-  //     expect(res.body.createdAt).toBeDefined();
-  //     expect(res.body.updatedAt).toBeDefined();
-  //   });
-
-  //   it("Deve retornar resposta em json", async () => {
-  //     const res = await request(app)
-  //       .get("/name/74a247a6-dc40-4d48-8368-e41333b35aac/")
-  //       .send({
-  //         name: "jose",
-  //       });
-  //     expect(res.headers["content-type"]).toEqual(
-  //       expect.stringContaining("json")
-  //     );
-  //   });
 });

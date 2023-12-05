@@ -5,6 +5,12 @@ const NameController = require("../controllers/nameController.js");
 const { prismaClient } = require("../app/db/prisma/prismaClient.js");
 const nameController = new NameController();
 
+// beforeEach(async () => {
+//   createUpdateUser = await request(app).post("/name/").send({
+//     name: "beforeUpdate",
+//   });
+// });
+
 afterEach(async () => {
   const findUsuarioTest = await prismaClient.testName.findFirst({
     where: {
@@ -21,6 +27,22 @@ afterEach(async () => {
       },
     });
   }
+
+  // const findUpdateTest = await prismaClient.testName.findFirst({
+  //   where: {
+  //     name: "afterUpdate",
+  //   },
+  // });
+
+  // if (findUpdateTest) {
+  //   const { id } = findUpdateTest;
+
+  //   const deleteUsuarioTest = await prismaClient.testName.delete({
+  //     where: {
+  //       id,
+  //     },
+  //   });
+  // }
 });
 
 // Testes de existência dos métodos executados pelo Controller
@@ -119,3 +141,7 @@ describe("/POST /name create()", () => {
     expect(res.body.updatedAt).toBeDefined();
   });
 });
+
+// describe("/PATCH /name update()", () => {
+//   it("Deve alterar o nome do usuário informado no id", async () => {});
+// });

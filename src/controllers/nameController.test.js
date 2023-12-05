@@ -1,12 +1,29 @@
 const request = require("supertest");
 const app = require("../app.js");
-const router = require("../routers/routes.js");
-
-// Testes de existência dos métodos executados pelo Controller
 
 const NameController = require("../controllers/nameController.js");
 const { prismaClient } = require("../app/db/prisma/prismaClient.js");
 const nameController = new NameController();
+
+afterEach(async () => {
+  const findUsuarioTest = await prismaClient.testName.findFirst({
+    where: {
+      name: "UsuarioTeste",
+    },
+  });
+
+  if (findUsuarioTest) {
+    const { id } = findUsuarioTest;
+
+    const deleteUsuarioTest = await prismaClient.testName.delete({
+      where: {
+        id,
+      },
+    });
+  }
+});
+
+// Testes de existência dos métodos executados pelo Controller
 
 describe("Test de nameController", () => {
   it("Verifica se método findOne está definida", () => {
@@ -37,24 +54,6 @@ describe("/GET /name findAll()", () => {
     const res = await request(app).get("/name/");
     expect(res.statusCode).toEqual(200);
   });
-});
-
-afterEach(async () => {
-  const findUsuarioTest = await prismaClient.testName.findFirst({
-    where: {
-      name: "UsuarioTeste",
-    },
-  });
-
-  if (findUsuarioTest) {
-    const { id } = findUsuarioTest;
-
-    const deleteUsuarioTest = await prismaClient.testName.delete({
-      where: {
-        id,
-      },
-    });
-  }
 });
 
 // TESTE DE ROTA: /GET /name:id findOne()
@@ -93,7 +92,7 @@ describe("/GET /name:id findOne()", () => {
 });
 
 describe("/POST /name create()", () => {
-  it("Deve criar o usuário pelo id e retornar ele em json", async () => {
+  it("Deve criar o usuário e retornar ele em json", async () => {
     const res = await request(app).post("/name/").send({
       name: "UsuarioTeste",
     });
@@ -101,5 +100,22 @@ describe("/POST /name create()", () => {
     expect(res.headers["content-type"]).toEqual(
       expect.stringContaining("json")
     );
+  });
+
+  it("Deve retornar statusCode 201", async () => {
+    const res = await request(app).post("/name/").send({
+      name: "UsuarioTeste",
+    });
+    expect(res.statusCode).toEqual(201);
+  });
+
+  it("Deve retornar campos obrigatórios do usuário criado", async () => {
+    const res = await request(app).post("/name/").send({
+      name: "UsuarioTeste",
+    });
+    expect(res.body.id).toBeDefined();
+    expect(res.body.name).toBeDefined();
+    expect(res.body.createdAt).toBeDefined();
+    expect(res.body.updatedAt).toBeDefined();
   });
 });

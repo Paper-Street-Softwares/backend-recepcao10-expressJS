@@ -91,7 +91,6 @@ describe("/POST /name create()", () => {
     });
 
     const id = res.body.id;
-    console.log(id);
 
     const deletedUser = prismaClient.testName.delete({
       where: {
@@ -100,6 +99,10 @@ describe("/POST /name create()", () => {
     });
 
     expect(res.statusCode).toEqual(201);
+    expect(res.body.id).toBeDefined();
+    expect(res.body.name).toBeDefined();
+    expect(res.body.createdAt).toBeDefined();
+    expect(res.body.updatedAt).toBeDefined();
     return deletedUser;
   });
 

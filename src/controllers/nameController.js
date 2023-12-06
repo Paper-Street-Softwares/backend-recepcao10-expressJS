@@ -1,6 +1,7 @@
 const { request, response } = require("express");
 const { prismaClient } = require("../app/db/prisma/prismaClient.js");
 const logger = require("../app/logs/logger.js");
+const { object, string } = require("yup");
 
 class NameController {
   async findAll(request, response) {
@@ -51,6 +52,10 @@ class NameController {
           error: "User already created.",
         });
       } else {
+        const userSchema = object({
+          name: string().required(),
+        });
+
         const newUser = await prismaClient.testName.create({
           data: {
             name,

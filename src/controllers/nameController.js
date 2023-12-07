@@ -1,6 +1,7 @@
 const { request, response } = require("express");
 const { prismaClient } = require("../app/db/prisma/prismaClient.js");
 const logger = require("../app/logs/logger.js");
+const { nameValidation } = require("../app/validations/name.validation.js");
 const { object, string } = require("yup");
 
 class NameController {
@@ -33,7 +34,9 @@ class NameController {
   }
 
   async create(request, response) {
-    const { name } = request.body;
+    const nameSchema = object({
+      name: string().required(),
+    });
 
     try {
       const foundUser = await prismaClient.testName.findFirst({
@@ -52,10 +55,7 @@ class NameController {
           error: "User already created.",
         });
       } else {
-        const userSchema = object({
-          name: string().required(),
-        });
-
+        await nameSchema.validate(request.body);
         const newUser = await prismaClient.testName.create({
           data: {
             name,
@@ -64,6 +64,7 @@ class NameController {
         return response.status(201).json(newUser);
       }
     } catch (err) {
+      return response.status(400).json(err);
       logger.error(err, {
         error: "exemplo do erro",
         src: "fonte do erro",

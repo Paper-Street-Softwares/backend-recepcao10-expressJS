@@ -64,11 +64,11 @@ class NameController {
         return response.status(201).json(newUser);
       }
     } catch (err) {
-      return response.status(400).json(err);
       logger.error(err, {
         error: "exemplo do erro",
         src: "fonte do erro",
       });
+      return response.status(400).json(err);
     }
   }
 

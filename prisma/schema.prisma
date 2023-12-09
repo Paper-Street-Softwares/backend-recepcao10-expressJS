@@ -8,8 +8,27 @@ datasource db {
 }
 
 model visitante {
-  id        String   @id @default(uuid())
-  name      String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id           String   @id @default(uuid())
+  name         String?
+  visitsCount  Int? @default(1)
+  visits       visita[]
+  phone        String?
+  address      String?
+  cityAndState String?
+  age          Int?
+  gender       String?
+  religion     String?
+  smallGroup   String?
+  bibleStudy   String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model visita {
+  id          String     @id @default(uuid())
+  visitDate   String?
+  visitante   visitante? @relation(fields: [visitanteId], references: [id])
+  visitanteId String?
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
 }

@@ -69,6 +69,10 @@ class NameController {
       const { id } = request.params;
       const { name } = request.body;
 
+      if (!name) {
+        return response.status(400).json({ error: "Name must be informed." });
+      }
+
       const foundUser = await prismaClient.testName.findFirst({
         where: {
           id,

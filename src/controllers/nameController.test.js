@@ -198,9 +198,7 @@ describe("/DEL /name:id delete()", () => {
       },
     });
 
-    console.log(userToBeDeleted);
     const { id } = userToBeDeleted;
-    console.log(id);
     const res = await request(app).delete(`/name/${id}`);
 
     expect(res.statusCode).toEqual(200);

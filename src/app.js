@@ -9,7 +9,10 @@ app.use(router);
 app.get("/", (request, response) => {
   response
     .status(200)
-    .send({ status: "ok", nameRoute: "http://localhost:3000/api/visitante" });
+    .send({
+      status: "ok",
+      visitanteRoute: "http://localhost:3000/api/visitante",
+    });
 });
 
 module.exports = app;

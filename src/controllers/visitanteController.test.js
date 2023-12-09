@@ -5,6 +5,7 @@ const logger = require("../app/logs/logger.js");
 const VisitanteController = require("./visitanteController.js");
 const { prismaClient } = require("../app/db/prisma/prismaClient.js");
 const visitanteController = new VisitanteController();
+const idToTestFindById = "33e3db71-1955-4725-ab55-14c59cb26360";
 
 beforeEach(async () => {
   const findBeforeUpdate = await prismaClient.visitante.findFirst({
@@ -117,26 +118,20 @@ describe("/GET /name findAll()", () => {
 
 describe("/GET /name:id findOne()", () => {
   it("Deve encontrar o usuário pelo id e retornar ele em json", async () => {
-    const res = await request(app).get(
-      "/api/visitantes/d847071a-928a-4daf-aa2f-077072a7e1c8/"
-    );
-    expect(res.body.name).toBe("edison");
+    const res = await request(app).get(`/api/visitantes/${idToTestFindById}/`);
+    expect(res.body.name).toBe("Edison Matos");
     expect(res.headers["content-type"]).toEqual(
       expect.stringContaining("json")
     );
   });
 
   it("Deve retornar statusCode 200", async () => {
-    const res = await request(app).get(
-      "/api/visitantes/d847071a-928a-4daf-aa2f-077072a7e1c8/"
-    );
+    const res = await request(app).get(`/api/visitantes/${idToTestFindById}/`);
     expect(res.statusCode).toEqual(200);
   });
 
   it("Deve retornar os campos obrigatórios do usuário encontrado", async () => {
-    const res = await request(app).get(
-      "/api/visitantes/d847071a-928a-4daf-aa2f-077072a7e1c8/"
-    );
+    const res = await request(app).get(`/api/visitantes/${idToTestFindById}/`);
     expect(res.body.id).toBeDefined();
     expect(res.body.name).toBeDefined();
     expect(res.body.createdAt).toBeDefined();
@@ -207,7 +202,7 @@ describe("/PATCH /name update()", () => {
     expect(res.statusCode).toBe(200);
   });
 
-  it("Deve retornar statusCode 400 se nao informar campo name", async () => {
+  it("Deve permitir modificação apenas nos campos informados", async () => {
     const previousUser = await prismaClient.visitante.findFirst({
       where: {
         name: "beforeUpdate",
@@ -216,7 +211,7 @@ describe("/PATCH /name update()", () => {
     const { id } = previousUser;
 
     const res = await request(app).patch(`/api/visitantes/${id}`).send({});
-    expect(res.statusCode).toBe(400);
+    expect(res.statusCode).toBe(200);
   });
 });
 

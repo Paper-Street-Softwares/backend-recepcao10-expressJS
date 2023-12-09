@@ -2,7 +2,7 @@ const request = require("supertest");
 const app = require("../app.js");
 const logger = require("../app/logs/logger.js");
 
-const NameController = require("../controllers/nameController.js");
+const NameController = require("./visitanteController.js");
 const { prismaClient } = require("../app/db/prisma/prismaClient.js");
 const nameController = new NameController();
 

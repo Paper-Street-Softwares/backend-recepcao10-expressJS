@@ -5,10 +5,10 @@ const visitanteRouter = Router();
 
 const visitanteController = new VisitanteController();
 
-visitanteRouter.get("/api/visitante", visitanteController.findAll);
-visitanteRouter.get("/api/visitante/:id", visitanteController.findOne);
-visitanteRouter.post("/api/visitante", visitanteController.create);
-visitanteRouter.patch("/api/visitante/:id", visitanteController.update);
-visitanteRouter.delete("/api/visitante/:id", visitanteController.delete);
+visitanteRouter.get("/api/visitantes", visitanteController.findAll);
+visitanteRouter.get("/api/visitantes/:id", visitanteController.findOne);
+visitanteRouter.post("/api/visitantes", visitanteController.create);
+visitanteRouter.patch("/api/visitantes/:id", visitanteController.update);
+visitanteRouter.delete("/api/visitantes/:id", visitanteController.delete);
 
 module.exports = visitanteRouter;

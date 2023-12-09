@@ -9,9 +9,9 @@ datasource db {
 
 model visitante {
   id           String   @id @default(uuid())
-  visits       visita[]
-  visitsCount  Int?
   name         String?
+  visitsCount  Int?
+  visits       visita[]
   phone        String?
   address      String?
   cityAndState String?

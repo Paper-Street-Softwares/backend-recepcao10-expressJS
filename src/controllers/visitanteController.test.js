@@ -118,7 +118,7 @@ describe("/GET /name findAll()", () => {
 describe("/GET /name:id findOne()", () => {
   it("Deve encontrar o usuário pelo id e retornar ele em json", async () => {
     const res = await request(app).get(
-      "/api/visitantes/398fc11e-d067-4681-a966-0430114d4b56/"
+      "/api/visitantes/d847071a-928a-4daf-aa2f-077072a7e1c8/"
     );
     expect(res.body.name).toBe("edison");
     expect(res.headers["content-type"]).toEqual(
@@ -128,14 +128,14 @@ describe("/GET /name:id findOne()", () => {
 
   it("Deve retornar statusCode 200", async () => {
     const res = await request(app).get(
-      "/api/visitantes/398fc11e-d067-4681-a966-0430114d4b56/"
+      "/api/visitantes/d847071a-928a-4daf-aa2f-077072a7e1c8/"
     );
     expect(res.statusCode).toEqual(200);
   });
 
   it("Deve retornar os campos obrigatórios do usuário encontrado", async () => {
     const res = await request(app).get(
-      "/api/visitantes/398fc11e-d067-4681-a966-0430114d4b56/"
+      "/api/visitantes/d847071a-928a-4daf-aa2f-077072a7e1c8/"
     );
     expect(res.body.id).toBeDefined();
     expect(res.body.name).toBeDefined();

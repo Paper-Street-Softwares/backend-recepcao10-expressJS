@@ -10,12 +10,12 @@ datasource db {
 model visitante {
   id           String   @id @default(uuid())
   name         String?
-  visitsCount  Int?
+  visitsCount  Int? @default(1)
   visits       visita[]
   phone        String?
   address      String?
   cityAndState String?
-  age          String?
+  age          Int?
   gender       String?
   religion     String?
   smallGroup   String?

@@ -14,7 +14,7 @@ beforeEach(async () => {
   });
 
   if (!findBeforeUpdate) {
-    createUpdateUser = await request(app).post("/api/name/").send({
+    createUpdateUser = await request(app).post("/api/visitante/").send({
       name: "beforeUpdate",
     });
 
@@ -25,7 +25,7 @@ beforeEach(async () => {
     });
 
     if (!findToBeDeletedUser) {
-      createToBeDeletedUser = await request(app).post("/api/name/").send({
+      createToBeDeletedUser = await request(app).post("/api/visitante/").send({
         name: "ToBeDeletedUser",
       });
     }
@@ -110,7 +110,7 @@ describe("Test de visitanteController", () => {
 
 describe("/GET /name findAll()", () => {
   it("Retorna statusCode 200", async () => {
-    const res = await request(app).get("/api/name/");
+    const res = await request(app).get("/api/visitante/");
     expect(res.statusCode).toEqual(200);
   });
 });
@@ -118,7 +118,7 @@ describe("/GET /name findAll()", () => {
 describe("/GET /name:id findOne()", () => {
   it("Deve encontrar o usuário pelo id e retornar ele em json", async () => {
     const res = await request(app).get(
-      "/api/name/74a247a6-dc40-4d48-8368-e41333b35aac/"
+      "/api/visitante/74a247a6-dc40-4d48-8368-e41333b35aac/"
     );
     expect(res.body.name).toBe("edison");
     expect(res.headers["content-type"]).toEqual(
@@ -128,7 +128,7 @@ describe("/GET /name:id findOne()", () => {
 
   it("Deve retornar statusCode 200", async () => {
     const res = await request(app)
-      .get("/api/name/74a247a6-dc40-4d48-8368-e41333b35aac/")
+      .get("/api/visitante/74a247a6-dc40-4d48-8368-e41333b35aac/")
       .send({
         name: "jose",
       });
@@ -137,7 +137,7 @@ describe("/GET /name:id findOne()", () => {
 
   it("Deve retornar os campos obrigatórios do usuário encontrado", async () => {
     const res = await request(app)
-      .get("/api/name/74a247a6-dc40-4d48-8368-e41333b35aac/")
+      .get("/api/visitante/74a247a6-dc40-4d48-8368-e41333b35aac/")
       .send({
         name: "jose",
       });
@@ -150,7 +150,7 @@ describe("/GET /name:id findOne()", () => {
 
 describe("/POST /name create()", () => {
   it("Deve criar o usuário e retornar ele em json", async () => {
-    const res = await request(app).post("/api/name/").send({
+    const res = await request(app).post("/api/visitante/").send({
       name: "UsuarioTeste",
     });
     expect(res.body.id).toBeDefined();
@@ -160,14 +160,14 @@ describe("/POST /name create()", () => {
   });
 
   it("Deve retornar statusCode 201", async () => {
-    const res = await request(app).post("/api/name/").send({
+    const res = await request(app).post("/api/visitante/").send({
       name: "UsuarioTeste",
     });
     expect(res.statusCode).toEqual(201);
   });
 
   it("Deve retornar campos obrigatórios do usuário criado", async () => {
-    const res = await request(app).post("/api/name/").send({
+    const res = await request(app).post("/api/visitante/").send({
       name: "UsuarioTeste",
     });
     expect(res.body.id).toBeDefined();
@@ -177,7 +177,7 @@ describe("/POST /name create()", () => {
   });
 
   it("Deve retornar 400 se nao for enviado campo necessário", async () => {
-    const res = await request(app).post("/api/name/").send({});
+    const res = await request(app).post("/api/visitante/").send({});
     expect(res.statusCode).toEqual(400);
   });
 });
@@ -191,7 +191,7 @@ describe("/PATCH /name update()", () => {
     });
     const { id } = previousUser;
 
-    const res = await request(app).patch(`/api/name/${id}`).send({
+    const res = await request(app).patch(`/api/visitante/${id}`).send({
       name: "afterUpdate",
     });
     expect(res.body.name).toBe("afterUpdate");
@@ -205,7 +205,7 @@ describe("/PATCH /name update()", () => {
     });
     const { id } = previousUser;
 
-    const res = await request(app).patch(`/api/name/${id}`).send({
+    const res = await request(app).patch(`/api/visitante/${id}`).send({
       name: "afterUpdate",
     });
     expect(res.statusCode).toBe(200);
@@ -219,7 +219,7 @@ describe("/PATCH /name update()", () => {
     });
     const { id } = previousUser;
 
-    const res = await request(app).patch(`/api/name/${id}`).send({});
+    const res = await request(app).patch(`/api/visitante/${id}`).send({});
     expect(res.statusCode).toBe(400);
   });
 });
@@ -233,7 +233,7 @@ describe("/DEL /name:id delete()", () => {
     });
 
     const { id } = userToBeDeleted;
-    const res = await request(app).delete(`/api/name/${id}`);
+    const res = await request(app).delete(`/api/visitante/${id}`);
 
     expect(res.statusCode).toEqual(200);
   });

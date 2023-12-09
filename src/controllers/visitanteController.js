@@ -36,9 +36,32 @@ class VisitanteController {
 
   async create(request, response) {
     try {
-      const { name } = request.body;
-      if (!name) {
-        return response.status(400).json({ error: "Name must be informed." });
+      const {
+        name,
+        visitsCount,
+        phone,
+        address,
+        cityAndState,
+        age,
+        gender,
+        religion,
+        smallGroup,
+        bibleStudy,
+      } = request.body;
+      if (
+        (!name,
+        phone,
+        address,
+        cityAndState,
+        age,
+        gender,
+        religion,
+        smallGroup,
+        bibleStudy)
+      ) {
+        return response
+          .status(400)
+          .json({ error: "All required fields must be informed." });
       }
       const foundUser = await prismaClient.visitante.findFirst({
         where: {
@@ -50,6 +73,15 @@ class VisitanteController {
         const newUser = await prismaClient.visitante.create({
           data: {
             name,
+            visitsCount,
+            phone,
+            address,
+            cityAndState,
+            age,
+            gender,
+            religion,
+            smallGroup,
+            bibleStudy,
           },
         });
 

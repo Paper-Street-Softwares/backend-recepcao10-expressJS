@@ -7,7 +7,7 @@ datasource db {
   url      = "file:./dev.db"
 }
 
-model testName {
+model visitante {
   id        String   @id @default(uuid())
   name      String
   createdAt DateTime @default(now())

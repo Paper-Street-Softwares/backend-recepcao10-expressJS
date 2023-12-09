@@ -5,7 +5,7 @@ const logger = require("../app/logs/logger.js");
 class VisitanteController {
   async findAll(request, response) {
     try {
-      const findAll = await prismaClient.testName.findMany();
+      const findAll = await prismaClient.visitante.findMany();
       return response.status(200).json(findAll);
     } catch (error) {
       logger.error(error);
@@ -16,7 +16,7 @@ class VisitanteController {
   async findOne(request, response) {
     try {
       const { id } = request.params;
-      const userFound = await prismaClient.testName.findFirst({
+      const userFound = await prismaClient.visitante.findFirst({
         where: {
           id,
         },
@@ -40,14 +40,14 @@ class VisitanteController {
       if (!name) {
         return response.status(400).json({ error: "Name must be informed." });
       }
-      const foundUser = await prismaClient.testName.findFirst({
+      const foundUser = await prismaClient.visitante.findFirst({
         where: {
           name,
         },
       });
 
       if (!foundUser) {
-        const newUser = await prismaClient.testName.create({
+        const newUser = await prismaClient.visitante.create({
           data: {
             name,
           },
@@ -73,14 +73,14 @@ class VisitanteController {
         return response.status(400).json({ error: "Name must be informed." });
       }
 
-      const foundUser = await prismaClient.testName.findFirst({
+      const foundUser = await prismaClient.visitante.findFirst({
         where: {
           id,
         },
       });
 
       if (foundUser) {
-        const updatedUser = await prismaClient.testName.update({
+        const updatedUser = await prismaClient.visitante.update({
           data: {
             name,
           },
@@ -103,14 +103,14 @@ class VisitanteController {
     try {
       const { id } = request.params;
 
-      const userFound = await prismaClient.testName.findFirst({
+      const userFound = await prismaClient.visitante.findFirst({
         where: {
           id,
         },
       });
 
       if (userFound) {
-        const deletedUser = await prismaClient.testName.delete({
+        const deletedUser = await prismaClient.visitante.delete({
           where: {
             id,
           },

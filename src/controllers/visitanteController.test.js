@@ -7,7 +7,7 @@ const { prismaClient } = require("../app/db/prisma/prismaClient.js");
 const visitanteController = new VisitanteController();
 
 beforeEach(async () => {
-  const findBeforeUpdate = await prismaClient.testName.findFirst({
+  const findBeforeUpdate = await prismaClient.visitante.findFirst({
     where: {
       name: "beforeUpdate",
     },
@@ -18,7 +18,7 @@ beforeEach(async () => {
       name: "beforeUpdate",
     });
 
-    const findToBeDeletedUser = await prismaClient.testName.findFirst({
+    const findToBeDeletedUser = await prismaClient.visitante.findFirst({
       where: {
         name: "ToBeDeletedUser",
       },
@@ -33,7 +33,7 @@ beforeEach(async () => {
 });
 
 afterEach(async () => {
-  const findUsuarioTest = await prismaClient.testName.findFirst({
+  const findUsuarioTest = await prismaClient.visitante.findFirst({
     where: {
       name: "UsuarioTeste",
     },
@@ -42,14 +42,14 @@ afterEach(async () => {
   if (findUsuarioTest) {
     const { id } = findUsuarioTest;
 
-    const deleteUsuarioTest = await prismaClient.testName.delete({
+    const deleteUsuarioTest = await prismaClient.visitante.delete({
       where: {
         id,
       },
     });
   }
 
-  const findUpdateTest = await prismaClient.testName.findFirst({
+  const findUpdateTest = await prismaClient.visitante.findFirst({
     where: {
       name: "afterUpdate",
     },
@@ -58,14 +58,14 @@ afterEach(async () => {
   if (findUpdateTest) {
     const { id } = findUpdateTest;
 
-    const deleteUsuarioTest = await prismaClient.testName.delete({
+    const deleteUsuarioTest = await prismaClient.visitante.delete({
       where: {
         id,
       },
     });
   }
 
-  const findUpdateTest2 = await prismaClient.testName.findFirst({
+  const findUpdateTest2 = await prismaClient.visitante.findFirst({
     where: {
       name: "beforeUpdate",
     },
@@ -74,7 +74,7 @@ afterEach(async () => {
   if (findUpdateTest2) {
     const { id } = findUpdateTest2;
 
-    const deleteUsuarioTest = await prismaClient.testName.delete({
+    const deleteUsuarioTest = await prismaClient.visitante.delete({
       where: {
         id,
       },
@@ -118,7 +118,7 @@ describe("/GET /name findAll()", () => {
 describe("/GET /name:id findOne()", () => {
   it("Deve encontrar o usuário pelo id e retornar ele em json", async () => {
     const res = await request(app).get(
-      "/api/visitante/74a247a6-dc40-4d48-8368-e41333b35aac/"
+      "/api/visitante/398fc11e-d067-4681-a966-0430114d4b56/"
     );
     expect(res.body.name).toBe("edison");
     expect(res.headers["content-type"]).toEqual(
@@ -127,20 +127,16 @@ describe("/GET /name:id findOne()", () => {
   });
 
   it("Deve retornar statusCode 200", async () => {
-    const res = await request(app)
-      .get("/api/visitante/74a247a6-dc40-4d48-8368-e41333b35aac/")
-      .send({
-        name: "jose",
-      });
+    const res = await request(app).get(
+      "/api/visitante/398fc11e-d067-4681-a966-0430114d4b56/"
+    );
     expect(res.statusCode).toEqual(200);
   });
 
   it("Deve retornar os campos obrigatórios do usuário encontrado", async () => {
-    const res = await request(app)
-      .get("/api/visitante/74a247a6-dc40-4d48-8368-e41333b35aac/")
-      .send({
-        name: "jose",
-      });
+    const res = await request(app).get(
+      "/api/visitante/398fc11e-d067-4681-a966-0430114d4b56/"
+    );
     expect(res.body.id).toBeDefined();
     expect(res.body.name).toBeDefined();
     expect(res.body.createdAt).toBeDefined();
@@ -184,7 +180,7 @@ describe("/POST /name create()", () => {
 
 describe("/PATCH /name update()", () => {
   it("Deve alterar o nome do usuário informado no id", async () => {
-    const previousUser = await prismaClient.testName.findFirst({
+    const previousUser = await prismaClient.visitante.findFirst({
       where: {
         name: "beforeUpdate",
       },
@@ -198,7 +194,7 @@ describe("/PATCH /name update()", () => {
   });
 
   it("Deve retornar statusCode 200", async () => {
-    const previousUser = await prismaClient.testName.findFirst({
+    const previousUser = await prismaClient.visitante.findFirst({
       where: {
         name: "beforeUpdate",
       },
@@ -212,7 +208,7 @@ describe("/PATCH /name update()", () => {
   });
 
   it("Deve retornar statusCode 400 se nao informar campo name", async () => {
-    const previousUser = await prismaClient.testName.findFirst({
+    const previousUser = await prismaClient.visitante.findFirst({
       where: {
         name: "beforeUpdate",
       },
@@ -226,7 +222,7 @@ describe("/PATCH /name update()", () => {
 
 describe("/DEL /name:id delete()", () => {
   it("Deve deletar o usuário informado no id", async () => {
-    const userToBeDeleted = await prismaClient.testName.findFirst({
+    const userToBeDeleted = await prismaClient.visitante.findFirst({
       where: {
         name: "ToBeDeletedUser",
       },

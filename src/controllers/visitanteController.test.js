@@ -2,9 +2,9 @@ const request = require("supertest");
 const app = require("../app.js");
 const logger = require("../app/logs/logger.js");
 
-const NameController = require("./visitanteController.js");
+const VisitanteController = require("./visitanteController.js");
 const { prismaClient } = require("../app/db/prisma/prismaClient.js");
-const nameController = new NameController();
+const visitanteController = new VisitanteController();
 
 beforeEach(async () => {
   const findBeforeUpdate = await prismaClient.testName.findFirst({
@@ -84,25 +84,25 @@ afterEach(async () => {
 
 // Testes de existência dos métodos executados pelo Controller
 
-describe("Test de nameController", () => {
+describe("Test de visitanteController", () => {
   it("Verifica se método findOne está definida", () => {
-    expect(nameController.findOne).toBeDefined();
+    expect(visitanteController.findOne).toBeDefined();
   });
 
   it("Verifica se método findAll está definida", () => {
-    expect(nameController.findAll).toBeDefined();
+    expect(visitanteController.findAll).toBeDefined();
   });
 
   it("Verifica se método create está definida", () => {
-    expect(nameController.create).toBeDefined();
+    expect(visitanteController.create).toBeDefined();
   });
 
   it("Verifica se método update está definida", () => {
-    expect(nameController.update).toBeDefined();
+    expect(visitanteController.update).toBeDefined();
   });
 
   it("Verifica se método delete está definida", () => {
-    expect(nameController.findOne).toBeDefined();
+    expect(visitanteController.findOne).toBeDefined();
   });
 });
 

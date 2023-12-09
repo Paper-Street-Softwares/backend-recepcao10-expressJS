@@ -2,7 +2,7 @@ const { request, response } = require("express");
 const { prismaClient } = require("../app/db/prisma/prismaClient.js");
 const logger = require("../app/logs/logger.js");
 
-class NameController {
+class VisitanteController {
   async findAll(request, response) {
     try {
       const findAll = await prismaClient.testName.findMany();
@@ -128,4 +128,4 @@ class NameController {
   }
 }
 
-module.exports = NameController;
+module.exports = VisitanteController;

@@ -4,126 +4,119 @@ const logger = require("../app/logs/logger.js");
 
 class NameController {
   async findAll(request, response) {
-    const findAll = await prismaClient.testName.findMany();
-    return response.status(200).json(findAll);
+    try {
+      const findAll = await prismaClient.testName.findMany();
+      return response.status(200).json(findAll);
+    } catch (error) {
+      logger.error(error);
+      return response.status(500).json({ message: error.message });
+    }
   }
 
   async findOne(request, response) {
-    const { id } = request.params;
-
-    const userFound = await prismaClient.testName.findFirst({
-      where: {
-        id,
-      },
-    });
-
-    if (!userFound) {
-      logger.error({
-        src: "findOne() | nameController.js",
-        error: "User not found.",
+    try {
+      const { id } = request.params;
+      const userFound = await prismaClient.testName.findFirst({
+        where: {
+          id,
+        },
       });
-      return response.status(400).json({
-        src: "findOne() | nameController.js",
-        error: "User not found.",
-      });
-    } else {
-      return response.status(200).json(userFound);
+
+      if (userFound) {
+        return response.status(200).json(userFound);
+      } else {
+        logger.error("User not found.");
+        return response.status(400).json({ error: "User not found." });
+      }
+    } catch (error) {
+      logger.error(error);
+      return response.status(500).json({ message: error.message });
     }
   }
 
   async create(request, response) {
-    const { name } = request.body;
-
     try {
+      const { name } = request.body;
       const foundUser = await prismaClient.testName.findFirst({
         where: {
           name,
         },
       });
 
-      if (foundUser) {
-        logger.error({
-          src: "create() | nameController.js",
-          error: "User already created.",
-        });
-        return response.status(400).json({
-          src: "create() | nameController.js",
-          error: "User already created.",
-        });
-      } else {
+      if (!foundUser) {
         const newUser = await prismaClient.testName.create({
           data: {
             name,
           },
         });
+
         return response.status(201).json(newUser);
+      } else {
+        logger.error("User already created.");
+        return response.status(400).json({ error: "User already created." });
       }
-    } catch (err) {
-      logger.error(err, {
-        error: "exemplo do erro",
-        src: "fonte do erro",
-      });
+    } catch (error) {
+      logger.error(error);
+      return response.status(500).json({ message: error.message });
     }
   }
 
   async update(request, response) {
-    const { id } = request.params;
-    const { name } = request.body;
+    try {
+      const { id } = request.params;
+      const { name } = request.body;
 
-    const foundUser = await prismaClient.testName.findFirst({
-      where: {
-        id,
-      },
-    });
-
-    if (foundUser) {
-      const updatedUser = await prismaClient.testName.update({
-        data: {
-          name,
-        },
+      const foundUser = await prismaClient.testName.findFirst({
         where: {
           id,
         },
       });
-      return response.status(200).json(updatedUser);
-    } else {
-      logger.error({
-        src: "update() | nameController.js",
-        error: "User not found.",
-      });
-      return response.status(400).json({
-        src: "update() | nameController.js",
-        error: "User not found.",
-      });
+
+      if (foundUser) {
+        const updatedUser = await prismaClient.testName.update({
+          data: {
+            name,
+          },
+          where: {
+            id,
+          },
+        });
+        return response.status(200).json(updatedUser);
+      } else {
+        logger.error("User not found.");
+        return response.status(400).json({ error: "User not found." });
+      }
+    } catch (error) {
+      logger.error(error);
+      return response.status(500).json({ message: error.message });
     }
   }
 
   async delete(request, response) {
-    const { id } = request.params;
+    try {
+      const { id } = request.params;
 
-    const userFound = await prismaClient.testName.findFirst({
-      where: {
-        id,
-      },
-    });
-
-    if (userFound) {
-      const deletedUser = await prismaClient.testName.delete({
+      const userFound = await prismaClient.testName.findFirst({
         where: {
           id,
         },
       });
 
-      return response.status(200).json(deletedUser);
-    } else {
-      logger.error({
-        src: "delete() | nameController.js",
-        error: "User not found.",
-      });
-      return response.status(400).json({
-        src: "delete() | nameController.js",
-        error: "User not found.",
-      });
+      if (userFound) {
+        const deletedUser = await prismaClient.testName.delete({
+          where: {
+            id,
+          },
+        });
+
+        return response.status(200).json(deletedUser);
+      } else {
+        logger.error("User not found.");
+        return response.status(400).json({ error: "User not found." });
+      }
+    } catch (error) {
+      logger.error(error);
+      return response.status(500).json({ message: error.message });
     }
   }
 }

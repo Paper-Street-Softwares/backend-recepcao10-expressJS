@@ -175,6 +175,11 @@ describe("/POST /name create()", () => {
     expect(res.body.createdAt).toBeDefined();
     expect(res.body.updatedAt).toBeDefined();
   });
+
+  it("Deve retornar 400 se nao for enviado campo necessário", async () => {
+    const res = await request(app).post("/api/name/").send({});
+    expect(res.statusCode).toEqual(400);
+  });
 });
 
 describe("/PATCH /name update()", () => {
@@ -204,6 +209,18 @@ describe("/PATCH /name update()", () => {
       name: "afterUpdate",
     });
     expect(res.statusCode).toBe(200);
+  });
+
+  it("Deve retornar statusCode 400 se nao informar campo name", async () => {
+    const previousUser = await prismaClient.testName.findFirst({
+      where: {
+        name: "beforeUpdate",
+      },
+    });
+    const { id } = previousUser;
+
+    const res = await request(app).patch(`/api/name/${id}`).send({});
+    expect(res.statusCode).toBe(400);
   });
 });
 

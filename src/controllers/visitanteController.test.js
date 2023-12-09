@@ -202,7 +202,7 @@ describe("/PATCH /name update()", () => {
     expect(res.statusCode).toBe(200);
   });
 
-  it("Deve retornar statusCode 400 se nao informar campo name", async () => {
+  it("Deve permitir modificação apenas nos campos informados", async () => {
     const previousUser = await prismaClient.visitante.findFirst({
       where: {
         name: "beforeUpdate",
@@ -211,7 +211,7 @@ describe("/PATCH /name update()", () => {
     const { id } = previousUser;
 
     const res = await request(app).patch(`/api/visitantes/${id}`).send({});
-    expect(res.statusCode).toBe(400);
+    expect(res.statusCode).toBe(200);
   });
 });
 

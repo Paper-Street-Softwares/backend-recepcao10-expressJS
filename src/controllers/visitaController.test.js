@@ -27,3 +27,16 @@ describe("Test de visitanController", () => {
     expect(visitaController.findOne).toBeDefined();
   });
 });
+
+// Teste das requisicoes
+
+describe("/GET /api/visitas findAll()", () => {
+  it("Retorna statusCode 200", async () => {
+    const res = await request(app).get("/api/visitas/");
+    expect(res.statusCode).toEqual(200);
+  });
+});
+
+// describe("/POST /api/visitas create()", () => {
+
+// })

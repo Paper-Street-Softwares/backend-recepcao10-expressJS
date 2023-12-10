@@ -8,8 +8,9 @@ app.use(router);
 
 app.get("/", (request, response) => {
   response.status(200).send({
-    status: "ok",
+    serverStatus: "Ok",
     visitanteRoute: "http://localhost:3000/api/visitantes",
+    visitasRoute: "http://localhost:3000/api/visitas",
   });
 });
 

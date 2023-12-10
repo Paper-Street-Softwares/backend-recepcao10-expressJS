@@ -37,6 +37,22 @@ describe("/GET /api/visitas findAll()", () => {
   });
 });
 
-// describe("/POST /api/visitas create()", () => {
+describe("/POST /api/visitas create()", () => {
+  it("Retorna startusCode 200", async () => {
+    const res = await request(app).post("/api/visitas/").send({
+      visitDate: "11/11/2024",
+      visitanteId: "33e3db71-1955-4725-ab55-14c59cb26360",
+    });
+    expect(res.statusCode).toEqual(200);
+  });
+});
 
-// })
+// describe("/POST /api/visitas create()", () => {
+//   it("Retorna startusCode 200", async () => {
+//     const res = await request(app).post("/api/visitas/").send({
+//       visitDate: "11/11/2024",
+//       visitanteId: "",
+//     });
+//     expect(res.statusCode).toEqual(500);
+//   });
+// });

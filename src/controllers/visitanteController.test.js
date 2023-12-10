@@ -1,9 +1,9 @@
 const request = require("supertest");
 const app = require("../app.js");
 const logger = require("../app/logs/logger.js");
-
-const VisitanteController = require("./visitanteController.js");
 const { prismaClient } = require("../app/db/prisma/prismaClient.js");
+const VisitanteController = require("./visitanteController.js");
+
 const visitanteController = new VisitanteController();
 const idToTestFindById = "33e3db71-1955-4725-ab55-14c59cb26360";
 

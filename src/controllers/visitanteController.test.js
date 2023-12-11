@@ -109,6 +109,16 @@ describe("Test de visitanteController", () => {
 
 // Teste das requisicoes
 
+describe("/POST /name create()", () => {
+  it("Deve criar a entidade e retornar statusCode 201", async () => {
+    const res = await request(app).post("/api/visitantes/").send({
+      name: "UsuarioTeste",
+    });
+    expect(res.body.id).toBeDefined();
+    expect(res.statusCode).toEqual(201);
+  });
+});
+
 describe("/GET /name findAll()", () => {
   it("Lista todas entidades e retorna statusCode 200", async () => {
     const res = await request(app).get("/api/visitantes/");
@@ -121,16 +131,6 @@ describe("/GET /name:id findOne()", () => {
     const res = await request(app).get(`/api/visitantes/${idToTestFindById}/`);
     expect(res.body.id).toBeDefined();
     expect(res.statusCode).toEqual(200);
-  });
-});
-
-describe("/POST /name create()", () => {
-  it("Deve criar a entidade e retornar statusCode 201", async () => {
-    const res = await request(app).post("/api/visitantes/").send({
-      name: "UsuarioTeste",
-    });
-    expect(res.body.id).toBeDefined();
-    expect(res.statusCode).toEqual(201);
   });
 });
 

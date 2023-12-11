@@ -60,5 +60,5 @@ describe("/GET /api/visitas/:id findOne()", () => {
 });
 
 describe("/DELETE /api/visitas/:id delete()", () => {
-  it("Apaga a entidade pelo id e retorna status code 200", async () => {});
+  it("Apaga a entidade pelo id e retorna statuscode 200", async () => {});
 });

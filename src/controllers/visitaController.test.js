@@ -31,14 +31,14 @@ describe("Test de visitanController", () => {
 // Teste das requisicoes
 
 describe("/GET /api/visitas findAll()", () => {
-  it("Retorna statusCode 200", async () => {
+  it("Lista todas entidades e retorna statusCode 200", async () => {
     const res = await request(app).get("/api/visitas/");
     expect(res.statusCode).toEqual(200);
   });
 });
 
 describe("/POST /api/visitas create()", () => {
-  it("Retorna startusCode 200", async () => {
+  it("Cria a entidade e retorna startusCode 200", async () => {
     const res = await request(app).post("/api/visitas/").send({
       visitDate: "11/11/2024",
       visitanteId: "33e3db71-1955-4725-ab55-14c59cb26360",
@@ -47,12 +47,12 @@ describe("/POST /api/visitas create()", () => {
   });
 });
 
-// describe("/POST /api/visitas create()", () => {
-//   it("Retorna startusCode 200", async () => {
-//     const res = await request(app).post("/api/visitas/").send({
-//       visitDate: "11/11/2024",
-//       visitanteId: "",
-//     });
-//     expect(res.statusCode).toEqual(500);
-//   });
-// });
+describe("/GET /api/visitas/:id findOne()", () => {
+  it("Localiza a entidade pelo id e retorna statuscode 200", async () => {
+    const res = await request(app).get(
+      "/api/visitas/15072fc0-6083-49b4-9468-90d9074fb587"
+    );
+    expect(res.body.id).toBeDefined();
+    expect(res.statusCode).toEqual(200);
+  });
+});

@@ -12,7 +12,26 @@ class VisitaController {
       return response.status(500).json({ message: error.message });
     }
   }
-  async findOne() {}
+  async findOne(request, response) {
+    try {
+      const { id } = request.params;
+
+      const userFound = await prismaClient.visita.findFirst({
+        where: {
+          id,
+        },
+      });
+
+      if (userFound) {
+        return response.status(200).json(userFound);
+      }
+      logger.error("User not found.");
+      return response.status(400).json({ error: "User not found." });
+    } catch (error) {
+      logger.error(error);
+      return response.status(500).json({ message: error.message });
+    }
+  }
   async create(request, response) {
     try {
       const { visitDate, visitanteId } = request.body;

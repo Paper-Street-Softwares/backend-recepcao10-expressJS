@@ -25,7 +25,6 @@ class VisitaController {
       if (userFound) {
         return response.status(200).json(userFound);
       }
-      logger.error("User not found.");
       return response.status(400).json({ error: "User not found." });
     } catch (error) {
       logger.error(error);
@@ -77,7 +76,6 @@ class VisitaController {
         });
         return response.status(400).json(updatedUser);
       } else {
-        logger.error("User not found.");
         return response.status(400).json({ error: "User not found." });
       }
     } catch (error) {
@@ -104,7 +102,6 @@ class VisitaController {
 
         return response.status(200).json(deletedUser);
       } else {
-        logger.error("User not found.");
         return response.status(400).json({ error: "User not found." });
       }
     } catch (error) {

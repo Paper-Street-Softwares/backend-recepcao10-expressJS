@@ -6,7 +6,9 @@ const VisitaController = require("../controllers/visitaController.js");
 
 const visitaController = new VisitaController();
 
-describe("Test de visitanController", () => {
+// Teste do visitaController
+
+describe("Test de visitaController", () => {
   it("Verifica se método findOne está definida", () => {
     expect(visitaController.findOne).toBeDefined();
   });
@@ -55,4 +57,8 @@ describe("/GET /api/visitas/:id findOne()", () => {
     expect(res.body.id).toBeDefined();
     expect(res.statusCode).toEqual(200);
   });
+});
+
+describe("/DELETE /api/visitas/:id delete()", () => {
+  it("Apaga a entidade pelo id e retorna status code 200", async () => {});
 });

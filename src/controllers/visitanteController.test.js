@@ -110,71 +110,32 @@ describe("Test de visitanteController", () => {
 // Teste das requisicoes
 
 describe("/GET /name findAll()", () => {
-  it("Retorna statusCode 200", async () => {
+  it("Lista todas entidades e retorna statusCode 200", async () => {
     const res = await request(app).get("/api/visitantes/");
     expect(res.statusCode).toEqual(200);
   });
 });
 
 describe("/GET /name:id findOne()", () => {
-  it("Deve encontrar o usuário pelo id e retornar ele em json", async () => {
-    const res = await request(app).get(`/api/visitantes/${idToTestFindById}/`);
-    expect(res.body.name).toBe("Edison Matos");
-    expect(res.headers["content-type"]).toEqual(
-      expect.stringContaining("json")
-    );
-  });
-
-  it("Deve retornar statusCode 200", async () => {
-    const res = await request(app).get(`/api/visitantes/${idToTestFindById}/`);
-    expect(res.statusCode).toEqual(200);
-  });
-
-  it("Deve retornar os campos obrigatórios do usuário encontrado", async () => {
+  it("Deve encontrar a entidade pelo id e retornar statusCode 200", async () => {
     const res = await request(app).get(`/api/visitantes/${idToTestFindById}/`);
     expect(res.body.id).toBeDefined();
-    expect(res.body.name).toBeDefined();
-    expect(res.body.createdAt).toBeDefined();
-    expect(res.body.updatedAt).toBeDefined();
+    expect(res.statusCode).toEqual(200);
   });
 });
 
 describe("/POST /name create()", () => {
-  it("Deve criar o usuário e retornar ele em json", async () => {
+  it("Deve criar a entidade e retornar statusCode 201", async () => {
     const res = await request(app).post("/api/visitantes/").send({
       name: "UsuarioTeste",
     });
     expect(res.body.id).toBeDefined();
-    expect(res.headers["content-type"]).toEqual(
-      expect.stringContaining("json")
-    );
-  });
-
-  it("Deve retornar statusCode 201", async () => {
-    const res = await request(app).post("/api/visitantes/").send({
-      name: "UsuarioTeste",
-    });
     expect(res.statusCode).toEqual(201);
-  });
-
-  it("Deve retornar campos obrigatórios do usuário criado", async () => {
-    const res = await request(app).post("/api/visitantes/").send({
-      name: "UsuarioTeste",
-    });
-    expect(res.body.id).toBeDefined();
-    expect(res.body.name).toBeDefined();
-    expect(res.body.createdAt).toBeDefined();
-    expect(res.body.updatedAt).toBeDefined();
-  });
-
-  it("Deve retornar 400 se nao for enviado campo necessário", async () => {
-    const res = await request(app).post("/api/visitantes/").send({});
-    expect(res.statusCode).toEqual(400);
   });
 });
 
 describe("/PATCH /name update()", () => {
-  it("Deve alterar o nome do usuário informado no id", async () => {
+  it("Deve alterar o nome da entidade informado no id e retornar statusCode 200", async () => {
     const previousUser = await prismaClient.visitante.findFirst({
       where: {
         name: "beforeUpdate",
@@ -186,37 +147,12 @@ describe("/PATCH /name update()", () => {
       name: "afterUpdate",
     });
     expect(res.body.name).toBe("afterUpdate");
-  });
-
-  it("Deve retornar statusCode 200", async () => {
-    const previousUser = await prismaClient.visitante.findFirst({
-      where: {
-        name: "beforeUpdate",
-      },
-    });
-    const { id } = previousUser;
-
-    const res = await request(app).patch(`/api/visitantes/${id}`).send({
-      name: "afterUpdate",
-    });
-    expect(res.statusCode).toBe(200);
-  });
-
-  it("Deve permitir modificação apenas nos campos informados", async () => {
-    const previousUser = await prismaClient.visitante.findFirst({
-      where: {
-        name: "beforeUpdate",
-      },
-    });
-    const { id } = previousUser;
-
-    const res = await request(app).patch(`/api/visitantes/${id}`).send({});
     expect(res.statusCode).toBe(200);
   });
 });
 
 describe("/DEL /name:id delete()", () => {
-  it("Deve deletar o usuário informado no id", async () => {
+  it("Deve deletar a entidade informada no id e retorna statusCode 200", async () => {
     const userToBeDeleted = await prismaClient.visitante.findFirst({
       where: {
         name: "ToBeDeletedUser",

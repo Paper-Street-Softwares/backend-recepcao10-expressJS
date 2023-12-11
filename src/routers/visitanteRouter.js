@@ -2,7 +2,6 @@ const { Router } = require("express");
 const VisitanteController = require("../controllers/visitanteController.js");
 
 const visitanteRouter = Router();
-
 const visitanteController = new VisitanteController();
 
 visitanteRouter.get("/api/visitantes", visitanteController.findAll);

@@ -25,7 +25,6 @@ class VisitaController {
       if (userFound) {
         return response.status(200).json(userFound);
       }
-      logger.error("User not found.");
       return response.status(400).json({ error: "User not found." });
     } catch (error) {
       logger.error(error);
@@ -55,8 +54,61 @@ class VisitaController {
       return response.status(500).json({ message: error.message });
     }
   }
-  async update() {}
-  async delete() {}
+  async update(request, response) {
+    try {
+      const { visitDate } = request.body;
+      const { id } = request.params;
+
+      const foundUser = await prismaClient.visita.findFirst({
+        where: {
+          id,
+        },
+      });
+
+      if (foundUser) {
+        const updatedUser = await prismaClient.visita.update({
+          data: {
+            visitDate,
+          },
+          where: {
+            id,
+          },
+        });
+        return response.status(400).json(updatedUser);
+      } else {
+        return response.status(400).json({ error: "User not found." });
+      }
+    } catch (error) {
+      logger.error(error);
+      return response.status(500).json({ message: error.message });
+    }
+  }
+  async delete(request, response) {
+    try {
+      const { id } = request.params;
+
+      const foundUser = await prismaClient.visita.findFirst({
+        where: {
+          id,
+        },
+      });
+
+      if (foundUser) {
+        const deletedUser = await prismaClient.visita.delete({
+          where: {
+            id,
+          },
+        });
+
+        return response.status(200).json(deletedUser);
+      } else {
+        return response.status(400).json({ error: "User not found." });
+      }
+    } catch (error) {
+      logger.error(error);
+      return response.status(500).json({ message: error.message });
+    }
+  }
 }
 
 module.exports = VisitaController;

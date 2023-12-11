@@ -25,7 +25,6 @@ class VisitanteController {
       if (userFound) {
         return response.status(200).json(userFound);
       } else {
-        logger.error("User not found.");
         return response.status(400).json({ error: "User not found." });
       }
     } catch (error) {
@@ -87,7 +86,6 @@ class VisitanteController {
 
         return response.status(201).json(newUser);
       } else {
-        logger.error("User already created.");
         return response.status(400).json({ error: "User already created." });
       }
     } catch (error) {
@@ -138,7 +136,6 @@ class VisitanteController {
         });
         return response.status(200).json(updatedUser);
       } else {
-        logger.error("User not found.");
         return response.status(400).json({ error: "User not found." });
       }
     } catch (error) {
@@ -166,7 +163,6 @@ class VisitanteController {
 
         return response.status(200).json(deletedUser);
       } else {
-        logger.error("User not found.");
         return response.status(400).json({ error: "User not found." });
       }
     } catch (error) {

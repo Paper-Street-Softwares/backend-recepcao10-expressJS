@@ -59,6 +59,12 @@ class VisitaController {
       const { visitDate } = request.body;
       const { id } = request.params;
 
+      if (!visitDate) {
+        return response
+          .status(400)
+          .json({ error: "visitDate must be informed." });
+      }
+
       const foundUser = await prismaClient.visita.findFirst({
         where: {
           id,
@@ -74,7 +80,7 @@ class VisitaController {
             id,
           },
         });
-        return response.status(400).json(updatedUser);
+        return response.status(200).json(updatedUser);
       } else {
         return response.status(400).json({ error: "User not found." });
       }

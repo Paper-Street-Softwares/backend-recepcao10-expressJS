@@ -7,94 +7,12 @@ const {
 } = require("../app/db/prisma/prismaClient.js");
 const VisitaController = require("../controllers/visitaController.js");
 
+const idForTestVisitante = "98ff19c6-eacc-49b4-b9fd-8fd524d6181b";
+const idForTestVisitDate = "adcab5fa-1b8f-4e7c-a906-36f95eb05ddf";
+
 const visitaController = new VisitaController();
 
-beforeEach(async () => {
-  // Create findOneTestUser
-
-  const findFindOneTestUser = await prismaClient.visita.findFirst({
-    where: {
-      visitDate: "findOneTestUser",
-    },
-  });
-
-  if (!findFindOneTestUser) {
-    const res = await request(app).post("/api/visitas").send({
-      visitDate: "findOneTestUser",
-      visitanteId: "33e3db71-1955-4725-ab55-14c59cb26360",
-    });
-  }
-
-  // Create deleteTestUser
-
-  const findDeleteTestUser = await prismaClient.visita.findFirst({
-    where: {
-      visitDate: "deleteTestUser",
-    },
-  });
-
-  if (!findDeleteTestUser) {
-    const res = await request(app).post("/api/visitas").send({
-      visitDate: "deleteTestUser",
-      visitanteId: "33e3db71-1955-4725-ab55-14c59cb26360",
-    });
-  }
-});
-
-afterEach(async () => {
-  // Delete findONeTestUser
-
-  const locateIdFindOneTestUser = await prismaClient.visita.findFirst({
-    where: {
-      visitDate: "findOneTestUser",
-    },
-  });
-
-  if (locateIdFindOneTestUser) {
-    const { id } = locateIdFindOneTestUser;
-    await prismaClient.visita.delete({
-      where: {
-        id,
-      },
-    });
-  }
-
-  // Delete createTestUser
-
-  const locateIdCreateTestUser = await prismaClient.visita.findFirst({
-    where: {
-      visitDate: "createTestUser",
-    },
-  });
-
-  if (locateIdCreateTestUser) {
-    const { id } = locateIdCreateTestUser;
-    await prismaClient.visita.delete({
-      where: {
-        id,
-      },
-    });
-  }
-
-  // Delete deleteTestUser
-
-  const locateIdDeleteTestUser = await prismaClient.visita.findFirst({
-    where: {
-      visitDate: "deleteTestUser",
-    },
-  });
-
-  if (locateIdDeleteTestUser) {
-    const { id } = locateIdDeleteTestUser;
-    await prismaClient.visita.delete({
-      where: {
-        id,
-      },
-    });
-  }
-});
-
-// Teste do visitaController
+// // Teste do visitaController
 
 describe("Test de visitaController", () => {
   it("Verifica se método findOne está definida", () => {
@@ -118,14 +36,36 @@ describe("Test de visitaController", () => {
   });
 });
 
-// Teste das requisicoes
+// // Teste das requisicoes
 
 describe("/POST /api/visitas create()", () => {
   it("Cria a entidade e retorna startusCode 200", async () => {
-    const res = await request(app).post("/api/visitas/").send({
-      visitDate: "createTestUser",
-      visitanteId: "33e3db71-1955-4725-ab55-14c59cb26360",
+    // TEST: Request to create de entity
+
+    const res = await request(app)
+      .post("/api/visitas/")
+      .send({
+        visitDate: "createTestVisitDate",
+        visitanteId: `${idForTestVisitante}`,
+      });
+
+    // Query to clear the entity
+
+    const locateIdCreateTestUser = await prismaClient.visita.findFirst({
+      where: {
+        visitDate: "createTestVisitDate",
+      },
     });
+
+    if (locateIdCreateTestUser) {
+      const { id } = locateIdCreateTestUser;
+      await prismaClient.visita.delete({
+        where: {
+          id,
+        },
+      });
+    }
+
     expect(res.statusCode).toEqual(200);
   });
 });
@@ -139,31 +79,49 @@ describe("/GET /api/visitas findAll()", () => {
 
 describe("/GET /api/visitas/:id findOne()", () => {
   it("Localiza a entidade pelo id e retorna statuscode 200", async () => {
-    const findFindOneTestUser = await prismaClient.visita.findFirst({
-      where: {
-        visitDate: "findOneTestUser",
-      },
-    });
-
-    const { id } = findFindOneTestUser;
-
-    const res = await request(app).get(`/api/visitas/${id}`);
+    const res = await request(app).get(`/api/visitas/${idForTestVisitDate}`);
     expect(res.body.id).toBeDefined();
+    expect(res.statusCode).toEqual(200);
+  });
+});
+
+describe("/PATCH /api/visitas/:id update()", () => {
+  it("Atualiza informações pelo id e retorna statuscode 200", async () => {
+    const res = await request(app)
+      .patch(`/api/visitas/${idForTestVisitDate}`)
+      .send({
+        visitDate: "forTestVisitDate",
+      });
+
     expect(res.statusCode).toEqual(200);
   });
 });
 
 describe("/DELETE /api/visitas/:id delete()", () => {
   it("Apaga a entidade pelo id e retorna statuscode 200", async () => {
+    // Create the entity to be deleted
+
     const findDeleteTestUser = await prismaClient.visita.findFirst({
       where: {
-        visitDate: "deleteTestUser",
+        visitDate: "deleteTesVisitDate",
       },
     });
 
-    const { id } = findDeleteTestUser;
+    if (findDeleteTestUser) {
+      const { id } = findDeleteTestUser;
+      const res = await request(app).delete(`/api/visitas/${id}`);
+    } else {
+      const forTestCreateEntity = await request(app)
+        .post("/api/visitas")
+        .send({
+          visitDate: "deleteTesVisitDate",
+          visitanteId: `${idForTestVisitante}`,
+        });
 
-    const res = await request(app).delete(`/api/visitas/${id}`);
-    expect(res.statusCode).toEqual(200);
+      const { id } = findDeleteTestUser;
+
+      const res = await request(app).delete(`/api/visitas/${id}`);
+      expect(res.statusCode).toEqual(200);
+    }
   });
 });

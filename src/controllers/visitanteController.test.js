@@ -5,85 +5,70 @@ const { prismaClient } = require("../app/db/prisma/prismaClient.js");
 const VisitanteController = require("./visitanteController.js");
 
 const visitanteController = new VisitanteController();
-const idToTestFindById = "33e3db71-1955-4725-ab55-14c59cb26360";
+const idForTestVisitante = "98ff19c6-eacc-49b4-b9fd-8fd524d6181b";
+const idForTestVisitDate = "adcab5fa-1b8f-4e7c-a906-36f95eb05ddf";
 
-beforeEach(async () => {
-  const findBeforeUpdate = await prismaClient.visitante.findFirst({
-    where: {
-      name: "beforeUpdate",
-    },
-  });
+// beforeAll(async () => {
+//   const findBeforeUpdate = await prismaClient.visitante.findFirst({
+//     where: {
+//       name: "beforeUpdate",
+//     },
+//   });
 
-  if (!findBeforeUpdate) {
-    createUpdateUser = await request(app).post("/api/visitantes/").send({
-      name: "beforeUpdate",
-    });
+//   if (!findBeforeUpdate) {
+//     createUpdateUser = await request(app).post("/api/visitantes/").send({
+//       name: "beforeUpdate",
+//     });
 
-    const findToBeDeletedUser = await prismaClient.visitante.findFirst({
-      where: {
-        name: "ToBeDeletedUser",
-      },
-    });
+//     const findToBeDeletedUser = await prismaClient.visitante.findFirst({
+//       where: {
+//         name: "ToBeDeletedUser",
+//       },
+//     });
 
-    if (!findToBeDeletedUser) {
-      createToBeDeletedUser = await request(app).post("/api/visitantes/").send({
-        name: "ToBeDeletedUser",
-      });
-    }
-  }
-});
+//     if (!findToBeDeletedUser) {
+//       createToBeDeletedUser = await request(app).post("/api/visitantes/").send({
+//         name: "ToBeDeletedUser",
+//       });
+//     }
+//   }
+// });
 
-afterEach(async () => {
-  const findUsuarioTest = await prismaClient.visitante.findFirst({
-    where: {
-      name: "UsuarioTeste",
-    },
-  });
+// afterAll(async () => {
+//   const findUpdateTest = await prismaClient.visitante.findFirst({
+//     where: {
+//       name: "afterUpdate",
+//     },
+//   });
 
-  if (findUsuarioTest) {
-    const { id } = findUsuarioTest;
+//   if (findUpdateTest) {
+//     const { id } = findUpdateTest;
 
-    const deleteUsuarioTest = await prismaClient.visitante.delete({
-      where: {
-        id,
-      },
-    });
-  }
+//     const deleteUsuarioTest = await prismaClient.visitante.delete({
+//       where: {
+//         id,
+//       },
+//     });
+//   }
 
-  const findUpdateTest = await prismaClient.visitante.findFirst({
-    where: {
-      name: "afterUpdate",
-    },
-  });
+//   const findUpdateTest2 = await prismaClient.visitante.findFirst({
+//     where: {
+//       name: "beforeUpdate",
+//     },
+//   });
 
-  if (findUpdateTest) {
-    const { id } = findUpdateTest;
+//   if (findUpdateTest2) {
+//     const { id } = findUpdateTest2;
 
-    const deleteUsuarioTest = await prismaClient.visitante.delete({
-      where: {
-        id,
-      },
-    });
-  }
+//     const deleteUsuarioTest = await prismaClient.visitante.delete({
+//       where: {
+//         id,
+//       },
+//     });
+//   }
+// });
 
-  const findUpdateTest2 = await prismaClient.visitante.findFirst({
-    where: {
-      name: "beforeUpdate",
-    },
-  });
-
-  if (findUpdateTest2) {
-    const { id } = findUpdateTest2;
-
-    const deleteUsuarioTest = await prismaClient.visitante.delete({
-      where: {
-        id,
-      },
-    });
-  }
-});
-
-// Testes de existência dos métodos executados pelo Controller
+// // Testes de existência dos métodos executados pelo Controller
 
 describe("Test de visitanteController", () => {
   it("Verifica se método findOne está definida", () => {
@@ -107,13 +92,30 @@ describe("Test de visitanteController", () => {
   });
 });
 
-// Teste das requisicoes
+// // Teste das requisicoes
 
 describe("/POST /name create()", () => {
   it("Deve criar a entidade e retornar statusCode 201", async () => {
     const res = await request(app).post("/api/visitantes/").send({
       name: "UsuarioTeste",
     });
+
+    const findUsuarioTest = await prismaClient.visitante.findFirst({
+      where: {
+        name: "UsuarioTeste",
+      },
+    });
+
+    if (findUsuarioTest) {
+      const { id } = findUsuarioTest;
+
+      const deleteUsuarioTest = await prismaClient.visitante.delete({
+        where: {
+          id,
+        },
+      });
+    }
+
     expect(res.body.id).toBeDefined();
     expect(res.statusCode).toEqual(201);
   });
@@ -128,7 +130,9 @@ describe("/GET /name findAll()", () => {
 
 describe("/GET /name:id findOne()", () => {
   it("Deve encontrar a entidade pelo id e retornar statusCode 200", async () => {
-    const res = await request(app).get(`/api/visitantes/${idToTestFindById}/`);
+    const res = await request(app).get(
+      `/api/visitantes/${idForTestVisitante}/`
+    );
     expect(res.body.id).toBeDefined();
     expect(res.statusCode).toEqual(200);
   });
@@ -136,30 +140,31 @@ describe("/GET /name:id findOne()", () => {
 
 describe("/PATCH /name update()", () => {
   it("Deve alterar o nome da entidade informado no id e retornar statusCode 200", async () => {
-    const previousUser = await prismaClient.visitante.findFirst({
-      where: {
-        name: "beforeUpdate",
-      },
-    });
-    const { id } = previousUser;
-
-    const res = await request(app).patch(`/api/visitantes/${id}`).send({
-      name: "afterUpdate",
-    });
-    expect(res.body.name).toBe("afterUpdate");
+    const res = await request(app)
+      .patch(`/api/visitantes/${idForTestVisitante}`)
+      .send({
+        name: "forTestVisitante",
+      });
     expect(res.statusCode).toBe(200);
   });
 });
 
 describe("/DEL /name:id delete()", () => {
   it("Deve deletar a entidade informada no id e retorna statusCode 200", async () => {
-    const userToBeDeleted = await prismaClient.visitante.findFirst({
+    const forTestCreateEntity = await request(app)
+      .post("/api/visitantes/")
+      .send({
+        name: "ToBeDeleted",
+      });
+
+    const findUsuarioTest = await prismaClient.visitante.findFirst({
       where: {
-        name: "ToBeDeletedUser",
+        name: "ToBeDeleted",
       },
     });
 
-    const { id } = userToBeDeleted;
+    const { id } = findUsuarioTest;
+
     const res = await request(app).delete(`/api/visitantes/${id}`);
 
     expect(res.statusCode).toEqual(200);

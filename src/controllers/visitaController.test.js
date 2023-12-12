@@ -9,7 +9,7 @@ const VisitaController = require("../controllers/visitaController.js");
 
 const visitaController = new VisitaController();
 
-beforeEach(async () => {
+beforeAll(async () => {
   // Create findOneTestUser
 
   const findFindOneTestUser = await prismaClient.visita.findFirst({
@@ -21,7 +21,7 @@ beforeEach(async () => {
   if (!findFindOneTestUser) {
     const res = await request(app).post("/api/visitas").send({
       visitDate: "findOneTestUser",
-      visitanteId: "33e3db71-1955-4725-ab55-14c59cb26360",
+      visitanteId: "5944281c-86fb-4f99-94f5-d27fe3276207",
     });
   }
 
@@ -36,12 +36,12 @@ beforeEach(async () => {
   if (!findDeleteTestUser) {
     const res = await request(app).post("/api/visitas").send({
       visitDate: "deleteTestUser",
-      visitanteId: "33e3db71-1955-4725-ab55-14c59cb26360",
+      visitanteId: "5944281c-86fb-4f99-94f5-d27fe3276207",
     });
   }
 });
 
-afterEach(async () => {
+afterAll(async () => {
   // Delete findONeTestUser
 
   const locateIdFindOneTestUser = await prismaClient.visita.findFirst({
@@ -124,7 +124,7 @@ describe("/POST /api/visitas create()", () => {
   it("Cria a entidade e retorna startusCode 200", async () => {
     const res = await request(app).post("/api/visitas/").send({
       visitDate: "createTestUser",
-      visitanteId: "33e3db71-1955-4725-ab55-14c59cb26360",
+      visitanteId: "5944281c-86fb-4f99-94f5-d27fe3276207",
     });
     expect(res.statusCode).toEqual(200);
   });

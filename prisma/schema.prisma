@@ -1,38 +1,35 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "postgresql"
-  url = env("POSTGRES_PRISMA_URL") // uses connection pooling
-  directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
+  provider  = "postgresql"
+  url       = env("POSTGRES_PRISMA_URL")
+  directUrl = env("POSTGRES_URL_NON_POOLING")
 }
 
 model visitante {
   id           String   @id @default(uuid())
   name         String?
-  visitsCount  Int? @default(1)
-  visits       visita[]
   phone        String?
+  gender       String?
+  age          Int?
   address      String?
   cityAndState String?
-  age          Int?
-  gender       String?
   religion     String?
   smallGroup   String?
   bibleStudy   String?
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
+  visitsCount  Int?     @default(1)
+  visits       visita[]
 }
 
 model visita {
   id          String     @id @default(uuid())
   visitDate   String?
-  visitante   visitante? @relation(fields: [visitanteId], references: [id])
-  visitanteId String?
   createdAt   DateTime   @default(now())
   updatedAt   DateTime   @updatedAt
+  visitanteId String?
+  visitante   visitante? @relation(fields: [visitanteId], references: [id])
 }

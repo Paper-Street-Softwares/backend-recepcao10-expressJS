@@ -18,7 +18,7 @@ beforeAll(async () => {
   if (!findFindOneTestUser) {
     const res = await request(app).post("/api/visitas").send({
       visitDate: "findOneTestUser",
-      visitanteId: "5944281c-86fb-4f99-94f5-d27fe3276207",
+      visitanteId: "2d087b07-c8c1-4a62-87b8-d779374d5ca9",
     });
   }
 
@@ -33,7 +33,7 @@ beforeAll(async () => {
   if (!findDeleteTestUser) {
     const res = await request(app).post("/api/visitas").send({
       visitDate: "deleteTestUser",
-      visitanteId: "5944281c-86fb-4f99-94f5-d27fe3276207",
+      visitanteId: "2d087b07-c8c1-4a62-87b8-d779374d5ca9",
     });
   }
 });
@@ -122,7 +122,7 @@ describe("/POST /api/visitas create()", () => {
     jest.setTimeout(10000);
     const res = await request(app).post("/api/visitas/").send({
       visitDate: "createTestUser",
-      visitanteId: "5944281c-86fb-4f99-94f5-d27fe3276207",
+      visitanteId: "2d087b07-c8c1-4a62-87b8-d779374d5ca9",
     });
     expect(res.statusCode).toEqual(200);
   });
@@ -147,6 +147,24 @@ describe("/GET /api/visitas/:id findOne()", () => {
 
     const res = await request(app).get(`/api/visitas/${id}`);
     expect(res.body.id).toBeDefined();
+    expect(res.statusCode).toEqual(200);
+  });
+});
+
+describe("/PATCH /api/visitas/:id update()", () => {
+  it("Deve atualizar as informações das entidade e retornar statuscode 200", async () => {
+    const user = await prismaClient.visita.findFirst({
+      where: {
+        visitDate: "findOneTestUser",
+      },
+    });
+
+    const { id } = user;
+
+    const res = await request(app).patch(`/api/visitas/${id}`).send({
+      visitDate: "findOneTestUser",
+    });
+
     expect(res.statusCode).toEqual(200);
   });
 });

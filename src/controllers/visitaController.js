@@ -74,7 +74,7 @@ class VisitaController {
             id,
           },
         });
-        return response.status(400).json(updatedUser);
+        return response.status(200).json(updatedUser);
       } else {
         return response.status(400).json({ error: "User not found." });
       }

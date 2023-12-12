@@ -5,7 +5,7 @@ const { prismaClient } = require("../app/db/prisma/prismaClient.js");
 const VisitanteController = require("./visitanteController.js");
 
 const visitanteController = new VisitanteController();
-const idToTestFindById = "5944281c-86fb-4f99-94f5-d27fe3276207";
+const idToTestFindById = "2d087b07-c8c1-4a62-87b8-d779374d5ca9";
 
 beforeEach(async () => {
   const findBeforeUpdate = await prismaClient.visitante.findFirst({

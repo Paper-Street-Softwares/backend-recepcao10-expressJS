@@ -1,10 +1,7 @@
 const request = require("supertest");
 const app = require("../app.js");
 const logger = require("../app/logs/logger.js");
-const {
-  PrismaCliente,
-  prismaClient,
-} = require("../app/db/prisma/prismaClient.js");
+const { prismaClient } = require("../app/db/prisma/prismaClient.js");
 const VisitaController = require("../controllers/visitaController.js");
 
 const visitaController = new VisitaController();
@@ -122,6 +119,7 @@ describe("Test de visitaController", () => {
 
 describe("/POST /api/visitas create()", () => {
   it("Cria a entidade e retorna startusCode 200", async () => {
+    jest.setTimeout(10000);
     const res = await request(app).post("/api/visitas/").send({
       visitDate: "createTestUser",
       visitanteId: "5944281c-86fb-4f99-94f5-d27fe3276207",

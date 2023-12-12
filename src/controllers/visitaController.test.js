@@ -1,15 +1,12 @@
 const request = require("supertest");
 const app = require("../app.js");
 const logger = require("../app/logs/logger.js");
-const {
-  PrismaCliente,
-  prismaClient,
-} = require("../app/db/prisma/prismaClient.js");
+const { prismaClient } = require("../app/db/prisma/prismaClient.js");
 const VisitaController = require("../controllers/visitaController.js");
 
 const visitaController = new VisitaController();
 
-beforeEach(async () => {
+beforeAll(async () => {
   // Create findOneTestUser
 
   const findFindOneTestUser = await prismaClient.visita.findFirst({
@@ -21,7 +18,7 @@ beforeEach(async () => {
   if (!findFindOneTestUser) {
     const res = await request(app).post("/api/visitas").send({
       visitDate: "findOneTestUser",
-      visitanteId: "33e3db71-1955-4725-ab55-14c59cb26360",
+      visitanteId: "2d087b07-c8c1-4a62-87b8-d779374d5ca9",
     });
   }
 
@@ -36,12 +33,12 @@ beforeEach(async () => {
   if (!findDeleteTestUser) {
     const res = await request(app).post("/api/visitas").send({
       visitDate: "deleteTestUser",
-      visitanteId: "33e3db71-1955-4725-ab55-14c59cb26360",
+      visitanteId: "2d087b07-c8c1-4a62-87b8-d779374d5ca9",
     });
   }
 });
 
-afterEach(async () => {
+afterAll(async () => {
   // Delete findONeTestUser
 
   const locateIdFindOneTestUser = await prismaClient.visita.findFirst({
@@ -122,9 +119,10 @@ describe("Test de visitaController", () => {
 
 describe("/POST /api/visitas create()", () => {
   it("Cria a entidade e retorna startusCode 200", async () => {
+    jest.setTimeout(10000);
     const res = await request(app).post("/api/visitas/").send({
       visitDate: "createTestUser",
-      visitanteId: "33e3db71-1955-4725-ab55-14c59cb26360",
+      visitanteId: "2d087b07-c8c1-4a62-87b8-d779374d5ca9",
     });
     expect(res.statusCode).toEqual(200);
   });
@@ -149,6 +147,24 @@ describe("/GET /api/visitas/:id findOne()", () => {
 
     const res = await request(app).get(`/api/visitas/${id}`);
     expect(res.body.id).toBeDefined();
+    expect(res.statusCode).toEqual(200);
+  });
+});
+
+describe("/PATCH /api/visitas/:id update()", () => {
+  it("Deve atualizar as informações das entidade e retornar statuscode 200", async () => {
+    const user = await prismaClient.visita.findFirst({
+      where: {
+        visitDate: "findOneTestUser",
+      },
+    });
+
+    const { id } = user;
+
+    const res = await request(app).patch(`/api/visitas/${id}`).send({
+      visitDate: "findOneTestUser",
+    });
+
     expect(res.statusCode).toEqual(200);
   });
 });

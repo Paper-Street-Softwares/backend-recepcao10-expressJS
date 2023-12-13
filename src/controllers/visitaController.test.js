@@ -5,7 +5,6 @@ const { prismaClient } = require("../app/db/prisma/prismaClient.js");
 const VisitaController = require("../controllers/visitaController.js");
 
 const visitaController = new VisitaController();
-const jestTimeOut = 50000;
 
 beforeAll(async () => {
   // Create findOneTestUser
@@ -120,7 +119,6 @@ describe("Test de visitaController", () => {
 
 describe("/POST /api/visitas create()", () => {
   it("Cria a entidade e retorna startusCode 200", async () => {
-    jest.setTimeout(10000);
     const res = await request(app).post("/api/visitas/").send({
       visitDate: "createTestUser",
       visitanteId: "2d087b07-c8c1-4a62-87b8-d779374d5ca9",
@@ -131,15 +129,13 @@ describe("/POST /api/visitas create()", () => {
 
 describe("/GET /api/visitas findAll()", () => {
   it("Lista todas entidades e retorna statusCode 200", async () => {
-    jest.setTimeout(jestTimeOut);
     const res = await request(app).get("/api/visitas/");
     expect(res.statusCode).toEqual(200);
   });
 });
 
 describe("/GET /api/visitas/:id findOne()", () => {
-  it("Localiza a entidade pelo id e retorna statuscode 200", async () => {
-    jest.setTimeout(jestTimeOut);
+  it("Localiza a entidade pelo id e retorna statusCode 200", async () => {
     const findFindOneTestUser = await prismaClient.visita.findFirst({
       where: {
         visitDate: "findOneTestUser",
@@ -156,7 +152,6 @@ describe("/GET /api/visitas/:id findOne()", () => {
 
 describe("/PATCH /api/visitas/:id update()", () => {
   it("Deve atualizar as informações das entidade e retornar statuscode 200", async () => {
-    jest.setTimeout(jestTimeOut);
     const user = await prismaClient.visita.findFirst({
       where: {
         visitDate: "findOneTestUser",
@@ -175,7 +170,6 @@ describe("/PATCH /api/visitas/:id update()", () => {
 
 describe("/DELETE /api/visitas/:id delete()", () => {
   it("Apaga a entidade pelo id e retorna statuscode 200", async () => {
-    jest.setTimeout(jestTimeOut);
     const findDeleteTestUser = await prismaClient.visita.findFirst({
       where: {
         visitDate: "deleteTestUser",

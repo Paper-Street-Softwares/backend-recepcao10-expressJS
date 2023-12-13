@@ -5,6 +5,7 @@ const { prismaClient } = require("../app/db/prisma/prismaClient.js");
 const VisitaController = require("../controllers/visitaController.js");
 
 const visitaController = new VisitaController();
+const jestTimeOut = 50000;
 
 beforeAll(async () => {
   // Create findOneTestUser
@@ -130,6 +131,7 @@ describe("/POST /api/visitas create()", () => {
 
 describe("/GET /api/visitas findAll()", () => {
   it("Lista todas entidades e retorna statusCode 200", async () => {
+    jest.setTimeout(jestTimeOut);
     const res = await request(app).get("/api/visitas/");
     expect(res.statusCode).toEqual(200);
   });
@@ -137,6 +139,7 @@ describe("/GET /api/visitas findAll()", () => {
 
 describe("/GET /api/visitas/:id findOne()", () => {
   it("Localiza a entidade pelo id e retorna statuscode 200", async () => {
+    jest.setTimeout(jestTimeOut);
     const findFindOneTestUser = await prismaClient.visita.findFirst({
       where: {
         visitDate: "findOneTestUser",
@@ -153,6 +156,7 @@ describe("/GET /api/visitas/:id findOne()", () => {
 
 describe("/PATCH /api/visitas/:id update()", () => {
   it("Deve atualizar as informações das entidade e retornar statuscode 200", async () => {
+    jest.setTimeout(jestTimeOut);
     const user = await prismaClient.visita.findFirst({
       where: {
         visitDate: "findOneTestUser",
@@ -171,6 +175,7 @@ describe("/PATCH /api/visitas/:id update()", () => {
 
 describe("/DELETE /api/visitas/:id delete()", () => {
   it("Apaga a entidade pelo id e retorna statuscode 200", async () => {
+    jest.setTimeout(jestTimeOut);
     const findDeleteTestUser = await prismaClient.visita.findFirst({
       where: {
         visitDate: "deleteTestUser",

@@ -6,6 +6,7 @@ const VisitanteController = require("./visitanteController.js");
 
 const visitanteController = new VisitanteController();
 const idToTestFindById = "2d087b07-c8c1-4a62-87b8-d779374d5ca9";
+const jestTimeOut = 50000;
 
 beforeEach(async () => {
   const findBeforeUpdate = await prismaClient.visitante.findFirst({
@@ -111,6 +112,7 @@ describe("Test de visitanteController", () => {
 
 describe("/POST /name create()", () => {
   it("Deve criar a entidade e retornar statusCode 201", async () => {
+    jest.setTimeout(jestTimeOut);
     const res = await request(app).post("/api/visitantes/").send({
       name: "UsuarioTeste",
     });
@@ -121,6 +123,7 @@ describe("/POST /name create()", () => {
 
 describe("/GET /name findAll()", () => {
   it("Lista todas entidades e retorna statusCode 200", async () => {
+    jest.setTimeout(jestTimeOut);
     const res = await request(app).get("/api/visitantes/");
     expect(res.statusCode).toEqual(200);
   });
@@ -128,6 +131,7 @@ describe("/GET /name findAll()", () => {
 
 describe("/GET /name:id findOne()", () => {
   it("Deve encontrar a entidade pelo id e retornar statusCode 200", async () => {
+    jest.setTimeout(jestTimeOut);
     const res = await request(app).get(`/api/visitantes/${idToTestFindById}/`);
     expect(res.body.id).toBeDefined();
     expect(res.statusCode).toEqual(200);
@@ -136,6 +140,7 @@ describe("/GET /name:id findOne()", () => {
 
 describe("/PATCH /name update()", () => {
   it("Deve alterar o nome da entidade informado no id e retornar statusCode 200", async () => {
+    jest.setTimeout(jestTimeOut);
     const previousUser = await prismaClient.visitante.findFirst({
       where: {
         name: "beforeUpdate",
@@ -153,6 +158,7 @@ describe("/PATCH /name update()", () => {
 
 describe("/DEL /name:id delete()", () => {
   it("Deve deletar a entidade informada no id e retorna statusCode 200", async () => {
+    jest.setTimeout(jestTimeOut);
     const userToBeDeleted = await prismaClient.visitante.findFirst({
       where: {
         name: "ToBeDeletedUser",

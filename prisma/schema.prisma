@@ -10,6 +10,8 @@ datasource db {
 model visitante {
   id           String   @id @default(auto()) @map("_id") @db.ObjectId
   name         String?
+  visitsCount  Int?     @default(1)
+  visits       visita[]
   phone        String?
   gender       String?
   age          Int?
@@ -20,15 +22,13 @@ model visitante {
   bibleStudy   String?
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
-  visitsCount  Int?     @default(1)
-  visits       visita[]
 }
 
 model visita {
   id          String     @id @default(auto()) @map("_id") @db.ObjectId
   visitDate   String?
-  createdAt   DateTime   @default(now())
-  updatedAt   DateTime   @updatedAt
   visitanteId String?    @db.ObjectId
   visitante   visitante? @relation(fields: [visitanteId], references: [id])
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
 }

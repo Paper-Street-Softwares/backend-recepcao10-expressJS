@@ -18,7 +18,7 @@ beforeAll(async () => {
   if (!findFindOneTestUser) {
     const res = await request(app).post("/api/visitas").send({
       visitDate: "findOneTestUser",
-      visitanteId: "2d087b07-c8c1-4a62-87b8-d779374d5ca9",
+      visitanteId: "657b82959c305ddae8930572",
     });
   }
 
@@ -33,7 +33,7 @@ beforeAll(async () => {
   if (!findDeleteTestUser) {
     const res = await request(app).post("/api/visitas").send({
       visitDate: "deleteTestUser",
-      visitanteId: "2d087b07-c8c1-4a62-87b8-d779374d5ca9",
+      visitanteId: "657b82959c305ddae8930572",
     });
   }
 });
@@ -121,7 +121,7 @@ describe("/POST /api/visitas create()", () => {
   it("Cria a entidade e retorna startusCode 200", async () => {
     const res = await request(app).post("/api/visitas/").send({
       visitDate: "createTestUser",
-      visitanteId: "2d087b07-c8c1-4a62-87b8-d779374d5ca9",
+      visitanteId: "657b82959c305ddae8930572",
     });
     expect(res.statusCode).toEqual(200);
   });

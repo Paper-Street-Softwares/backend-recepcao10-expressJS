@@ -3,13 +3,12 @@ generator client {
 }
 
 datasource db {
-  provider  = "postgresql"
-  url       = env("POSTGRES_PRISMA_URL")
-  directUrl = env("POSTGRES_URL_NON_POOLING")
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
 }
 
 model visitante {
-  id           String   @id @default(uuid())
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
   name         String?
   phone        String?
   gender       String?
@@ -26,10 +25,10 @@ model visitante {
 }
 
 model visita {
-  id          String     @id @default(uuid())
+  id          String     @id @default(auto()) @map("_id") @db.ObjectId
   visitDate   String?
   createdAt   DateTime   @default(now())
   updatedAt   DateTime   @updatedAt
-  visitanteId String?
+  visitanteId String?    @db.ObjectId
   visitante   visitante? @relation(fields: [visitanteId], references: [id])
 }

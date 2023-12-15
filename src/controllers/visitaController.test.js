@@ -8,7 +8,7 @@ const visitaController = new VisitaController();
 const idToTestFindById = "657b82959c305ddae8930572";
 
 beforeAll(async () => {
-  // Create findOneTestUser
+  // Create findOneTestUsers
 
   const findFindOneTestUser = await prismaClient.visita.findFirst({
     where: {

@@ -7,11 +7,7 @@ app.use(express.json());
 app.use(router);
 
 app.get("/", (request, response) => {
-  response.status(200).send({
-    serverStatus: "Ok",
-    visitanteRoute: "http://localhost:3000/api/visitantes",
-    visitasRoute: "http://localhost:3000/api/visitas",
-  });
+  response.status(200).send("Server OK");
 });
 
 module.exports = app;

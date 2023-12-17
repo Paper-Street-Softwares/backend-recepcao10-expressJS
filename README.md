@@ -36,9 +36,15 @@ Este repositório contém o backend da aplicação Recepção Nota 10 v2, respon
     npm install
     ```
 
-3. **Configuração do Banco de Dados**
+3. **Criar arquivo `.env`:**
 
-   Certifique-se de configurar corretamente o Prisma para se conectar ao seu banco de dados. Edite o arquivo `app/db/prisma/prismaClient.js` conforme necessário.
+   Crie um arquivo chamado `.env` na raiz do projeto para armazenar as variáveis de ambiente. O arquivo `.env` deve conter as seguintes informações:
+
+    ```env
+    DATABASE_URL="sua_url_do_banco_de_dados_mongodb"
+    ```
+
+   Substitua `sua_url_do_banco_de_dados_mongodb` pela URL do seu banco de dados MongoDB.
 
 4. **Iniciar o Projeto em Ambiente de Desenvolvimento**
 
@@ -46,7 +52,13 @@ Este repositório contém o backend da aplicação Recepção Nota 10 v2, respon
     npm run dev
     ```
 
-    Isso iniciará o servidor Express em modo de desenvolvimento.
+5. **Executar Testes**
+
+    ```bash
+    npm test
+    ```
+
+    Isso iniciará o Jest no modo de observação para execução dos testes automaticamente.
 
 <br>
 

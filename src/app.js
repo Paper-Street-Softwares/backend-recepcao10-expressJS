@@ -7,7 +7,7 @@ app.use(express.json());
 app.use(router);
 
 app.get("/", (request, response) => {
-  response.status(200).send("Server OK");
+  response.status(200).send({ status: "Server OK." });
 });
 
 module.exports = app;

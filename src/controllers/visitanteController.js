@@ -12,6 +12,7 @@ class VisitanteController {
           visits: {
             select: { visitDate: true },
           },
+          _count: true,
         },
       });
       return response.status(200).json(findAll);

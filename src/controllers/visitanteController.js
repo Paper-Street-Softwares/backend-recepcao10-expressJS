@@ -5,7 +5,15 @@ const logger = require("../app/logs/logger.js");
 class VisitanteController {
   async findAll(request, response) {
     try {
-      const findAll = await prismaClient.visitante.findMany();
+      const findAll = await prismaClient.visitante.findMany({
+        select: {
+          id: true,
+          name: true,
+          visits: {
+            select: { visitDate: true },
+          },
+        },
+      });
       return response.status(200).json(findAll);
     } catch (error) {
       logger.error(error);

@@ -1,6 +1,6 @@
 # 🚀 Backend API Recepção 10
 
-Este repositório contém o backend da aplicação Recepção Nota 10 v2, responsável por gerenciar dados de visitantes e visitas em uma organização religiosa. Desenvolvido utilizando Node.js, Express, Prisma e Pino para logging.
+Este repositório contém o backend da aplicação Recepção Nota 10, responsável por gerenciar dados de visitantes e visitas em uma organização religiosa. Desenvolvido utilizando Node.js, Express, Prisma e Pino para logging.
 
 <br>
 

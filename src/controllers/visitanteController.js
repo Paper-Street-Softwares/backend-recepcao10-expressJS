@@ -9,6 +9,14 @@ class VisitanteController {
         select: {
           id: true,
           name: true,
+          phone: true,
+          gender: true,
+          age: true,
+          address: true,
+          cityAndState: true,
+          religion: true,
+          smallGroup: true,
+          bibleStudy: true,
           visits: {
             select: { visitDate: true },
           },

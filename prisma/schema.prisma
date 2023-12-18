@@ -13,7 +13,6 @@ datasource db {
 model visitante {
   id           String   @id @default(auto()) @map("_id") @db.ObjectId
   name         String?
-  visitsCount  Int?     @default(1)
   visits       visita[]
   phone        String?
   gender       String?

@@ -72,15 +72,15 @@ class VisitanteController {
         bibleStudy,
       } = request.body;
       if (
-        (!name,
-        phone,
-        address,
-        cityAndState,
-        age,
-        gender,
-        religion,
-        smallGroup,
-        bibleStudy)
+        !name ||
+        !phone ||
+        !address ||
+        !cityAndState ||
+        !age ||
+        !gender ||
+        !religion ||
+        !smallGroup ||
+        !bibleStudy
       ) {
         return response
           .status(400)

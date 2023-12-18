@@ -17,6 +17,14 @@ beforeEach(async () => {
   if (!findBeforeUpdate) {
     createUpdateUser = await request(app).post("/api/visitantes/").send({
       name: "beforeUpdate",
+      phone: "phone",
+      address: "address",
+      cityAndState: "cityAndState",
+      age: 30,
+      gender: "gender",
+      religion: "religion",
+      smallGroup: "smallGroup",
+      bibleStudy: "bibleStudy",
     });
 
     const findToBeDeletedUser = await prismaClient.visitante.findFirst({
@@ -28,6 +36,14 @@ beforeEach(async () => {
     if (!findToBeDeletedUser) {
       createToBeDeletedUser = await request(app).post("/api/visitantes/").send({
         name: "ToBeDeletedUser",
+        phone: "phone",
+        address: "address",
+        cityAndState: "cityAndState",
+        age: 30,
+        gender: "gender",
+        religion: "religion",
+        smallGroup: "smallGroup",
+        bibleStudy: "bibleStudy",
       });
     }
   }
@@ -113,6 +129,14 @@ describe("/POST /name create()", () => {
   it("Deve criar a entidade e retornar statusCode 201", async () => {
     const res = await request(app).post("/api/visitantes/").send({
       name: "UsuarioTeste",
+      phone: "phone",
+      address: "address",
+      cityAndState: "cityAndState",
+      age: 30,
+      gender: "gender",
+      religion: "religion",
+      smallGroup: "smallGroup",
+      bibleStudy: "bibleStudy",
     });
     expect(res.body.id).toBeDefined();
     expect(res.statusCode).toEqual(201);

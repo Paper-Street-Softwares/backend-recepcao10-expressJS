@@ -59,7 +59,7 @@ class VisitaController {
     try {
       const { visitDate, visitanteId } = request.body;
 
-      if ((!visitDate, !visitanteId)) {
+      if (!visitDate || !visitanteId) {
         return response
           .status(400)
           .json({ error: "The date and Id of visitante are required." });

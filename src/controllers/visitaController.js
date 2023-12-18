@@ -23,6 +23,24 @@ class VisitaController {
       const { id } = request.params;
 
       const userFound = await prismaClient.visita.findFirst({
+        select: {
+          visitDate: true,
+          id: true,
+          createdAt: true,
+          updatedAt: true,
+          visitante: {
+            select: {
+              name: true,
+              id: true,
+              _count: true,
+              visits: {
+                select: {
+                  visitDate: true,
+                },
+              },
+            },
+          },
+        },
         where: {
           id,
         },

@@ -7,8 +7,8 @@ class VisitanteController {
     try {
       const findAll = await prismaClient.visitante.findMany({
         select: {
-          id: true,
           name: true,
+          id: true,
           visits: {
             select: { visitDate: true },
           },
@@ -26,6 +26,21 @@ class VisitanteController {
     try {
       const { id } = request.params;
       const userFound = await prismaClient.visitante.findFirst({
+        select: {
+          name: true,
+          id: true,
+          phone: true,
+          gender: true,
+          age: true,
+          cityAndState: true,
+          religion: true,
+          smallGroup: true,
+          bibleStudy: true,
+          createdAt: true,
+          updatedAt: true,
+          visits: { select: { visitDate: true, id: true } },
+          _count: true,
+        },
         where: {
           id,
         },

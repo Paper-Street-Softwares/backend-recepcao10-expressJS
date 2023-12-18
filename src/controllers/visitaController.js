@@ -5,7 +5,13 @@ const { prismaClient } = require("../app/db/prisma/prismaClient.js");
 class VisitaController {
   async findAll(request, response) {
     try {
-      const findAll = await prismaClient.visita.findMany();
+      const findAll = await prismaClient.visita.findMany({
+        select: {
+          visitDate: true,
+          id: true,
+          visitante: { select: { name: true, id: true } },
+        },
+      });
       return response.status(200).json(findAll);
     } catch (error) {
       logger.error(error);

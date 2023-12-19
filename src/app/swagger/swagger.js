@@ -5,7 +5,7 @@ const baseUrl = process.env.DEPLOY_URL;
 const doc = {
   info: {
     title: "Recepcao Nota 10 API Documentation",
-    description: "Documentation for the application Recepcao Nota 10.",
+    description: "This is the Recepcao Nota 10 documentation",
   },
   host: baseUrl,
   schemes: ["https"],

@@ -1,8 +1,8 @@
 {
   "swagger": "2.0",
   "info": {
-    "title": "API Recepção Nota 10",
-    "description": "Esta documentação se refere às rotas da aplicação Recepção Nota 10.",
+    "title": "Recepcao Nota 10 API Documentation",
+    "description": "Documentation for the application Recepcao Nota 10.",
     "version": "1.0.0"
   },
   "host": "localhost:3000",
@@ -11,7 +11,7 @@
   "paths": {
     "/api/visitantes": {
       "get": {
-        "description": "",
+        "description": "Show all visitantes",
         "responses": {
           "default": {
             "description": ""

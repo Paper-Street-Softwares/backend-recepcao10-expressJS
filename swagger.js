@@ -1,14 +1,15 @@
 const swaggerAutogen = require("swagger-autogen")();
+require();
 
 const doc = {
   info: {
-    title: "My API",
-    description: "Description",
+    title: "Recepcao Nota 10 API Documentation",
+    description: "Documentation for the application Recepcao Nota 10.n",
   },
-  host: "localhost:5000",
+  host: "localhost:3000",
 };
 
-const outputFile = "./swagger-output.json";
+const outputFile = "../swagger-output.json";
 const routes = ["./src/routers/routes.js"];
 
 /* NOTE: If you are using the express Router, you must pass in the 'routes' only the 

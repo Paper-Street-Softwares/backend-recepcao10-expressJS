@@ -30,7 +30,7 @@ model visita {
   id          String     @id @default(auto()) @map("_id") @db.ObjectId
   visitDate   String?
   visitanteId String?    @db.ObjectId
-  visitante   visitante? @relation(fields: [visitanteId], references: [id])
+  visitante   visitante? @relation(fields: [visitanteId], references: [id], onDelete: Cascade)
   createdAt   DateTime   @default(now())
   updatedAt   DateTime   @updatedAt
 }

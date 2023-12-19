@@ -840,6 +840,10 @@
     },
     "/": {
       "get": {
+        "tags": [
+          "Index"
+        ],
+        "summary": "Mostra status do servidor, documentação e rotas.",
         "description": "",
         "responses": {
           "200": {

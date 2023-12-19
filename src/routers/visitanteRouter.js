@@ -70,6 +70,7 @@ visitanteRouter.post(
   "$phone": "5561992781077",
   "$gender": "Masculino",
   "$age": 30,
+  "$address": "Endereço",
   "$cityAndState": "São Paulo - SP",
   "$religion": "Adventista",
   "$smallGroup": "Não frequenta",

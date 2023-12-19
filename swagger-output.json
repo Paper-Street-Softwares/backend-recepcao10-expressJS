@@ -2,14 +2,12 @@
   "swagger": "2.0",
   "info": {
     "title": "Recepcao Nota 10 API Documentation",
-    "description": "Documentation for the application Recepcao Nota 10.n",
+    "description": "Documentation for the application Recepcao Nota 10",
     "version": "1.0.0"
   },
   "host": "autogen-back.up.railway.app",
   "basePath": "/",
-  "schemes": [
-    "https"
-  ],
+  "schemes": ["https"],
   "paths": {
     "/api/visitantes": {
       "get": {

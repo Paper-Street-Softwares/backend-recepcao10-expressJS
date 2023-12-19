@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "title": "Recepcao Nota 10 API Documentation",
-    "description": "Documentation for the application Recepcao Nota 10.",
+    "description": "This is the Recepcao Nota 10 documentation",
     "version": "1.0.0"
   },
   "host": "recep10-back.up.railway.app",
@@ -91,6 +91,10 @@
                   "type": "number",
                   "example": 30
                 },
+                "address": {
+                  "type": "string",
+                  "example": "Endereço"
+                },
                 "cityAndState": {
                   "type": "string",
                   "example": "São Paulo - SP"
@@ -113,6 +117,7 @@
                 "phone",
                 "gender",
                 "age",
+                "address",
                 "cityAndState",
                 "religion",
                 "smallGroup",

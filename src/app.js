@@ -13,7 +13,14 @@ app.use(router);
 app.use("/doc", swaggerUi.serve, swaggerUi.setup(swaggerFile));
 
 app.get("/", (request, response) => {
-  response.status(200).send({ status: "Server OK." });
+  response.status(200).send({
+    status: "Server OK",
+    doc: "/doc",
+    routes: {
+      visitantes: "/api/visitantes",
+      visitas: "/api/visitas",
+    },
+  });
 });
 
 module.exports = app;

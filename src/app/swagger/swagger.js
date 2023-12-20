@@ -5,14 +5,13 @@ const baseUrl = process.env.DEPLOY_URL;
 const doc = {
   info: {
     title: "Recepcao Nota 10 API Documentation",
-    description: "Documentation for the application Recepcao Nota 10.",
+    description: "This is the Recepcao Nota 10 documentation",
   },
-  // host: "localhost:3000",
   host: baseUrl,
   schemes: ["https"],
 };
 
 const outputFile = "../../../swagger-output.json";
-const routes = ["../../routers/routes.js"];
+const routes = ["../../routers/routes.js", "../../app.js"];
 
 swaggerAutogen(outputFile, routes, doc);

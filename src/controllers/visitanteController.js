@@ -32,6 +32,7 @@ class VisitanteController {
           phone: true,
           gender: true,
           age: true,
+          address: true,
           cityAndState: true,
           religion: true,
           smallGroup: true,

@@ -17,6 +17,8 @@ app.use(router);
 app.use("/doc", swaggerUi.serve, swaggerUi.setup(swaggerFile));
 
 app.get("/", (request, response) => {
+  // #swagger.tags = ['Index']
+  // #swagger.summary = 'Mostra status do servidor, documentação e rotas.'
   response.status(200).send({
     status: "Server OK",
     doc: "/doc",

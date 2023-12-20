@@ -2,97 +2,857 @@
   "swagger": "2.0",
   "info": {
     "title": "Recepcao Nota 10 API Documentation",
-    "description": "Documentation for the application Recepcao Nota 10.",
+    "description": "This is the Recepcao Nota 10 documentation",
     "version": "1.0.0"
   },
   "host": "recep10-back.up.railway.app",
   "basePath": "/",
-  "schemes": ["https"],
+  "schemes": [
+    "https"
+  ],
   "paths": {
     "/api/visitantes": {
       "get": {
-        "description": "",
+        "tags": [
+          "Visitantes"
+        ],
+        "summary": "Lista todos os visitantes existentes.",
+        "description": "Lista todos os visitantes existentes.",
         "responses": {
-          "default": {
-            "description": ""
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "example": "Ed"
+                },
+                "id": {
+                  "type": "string",
+                  "example": "65808b8eeb9b0c4212971c64"
+                },
+                "visits": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "visitDate": {
+                        "type": "string",
+                        "example": "25/12/2024"
+                      }
+                    }
+                  }
+                },
+                "_count": {
+                  "type": "object",
+                  "properties": {
+                    "visits": {
+                      "type": "number",
+                      "example": 1
+                    }
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
           }
         }
       },
       "post": {
-        "description": "",
+        "tags": [
+          "Visitantes"
+        ],
+        "summary": "Cria um novo visitante.",
+        "description": "Cria um novo visitante.",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Payload",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "example": "Ed"
+                },
+                "phone": {
+                  "type": "string",
+                  "example": "5561992781077"
+                },
+                "gender": {
+                  "type": "string",
+                  "example": "Masculino"
+                },
+                "age": {
+                  "type": "number",
+                  "example": 30
+                },
+                "address": {
+                  "type": "string",
+                  "example": "Endereço"
+                },
+                "cityAndState": {
+                  "type": "string",
+                  "example": "São Paulo - SP"
+                },
+                "religion": {
+                  "type": "string",
+                  "example": "Adventista"
+                },
+                "smallGroup": {
+                  "type": "string",
+                  "example": "Não frequenta"
+                },
+                "bibleStudy": {
+                  "type": "string",
+                  "example": "Sim, com amigo"
+                }
+              },
+              "required": [
+                "name",
+                "phone",
+                "gender",
+                "age",
+                "address",
+                "cityAndState",
+                "religion",
+                "smallGroup",
+                "bibleStudy"
+              ]
+            }
+          }
+        ],
         "responses": {
-          "default": {
-            "description": ""
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "example": "Ed"
+                },
+                "id": {
+                  "type": "string",
+                  "example": "65808b8eeb9b0c4212971c64"
+                },
+                "phone": {
+                  "type": "string",
+                  "example": "5561992781077"
+                },
+                "gender": {
+                  "type": "string",
+                  "example": "masculino"
+                },
+                "age": {
+                  "type": "number",
+                  "example": 30
+                },
+                "cityAndState": {
+                  "type": "string",
+                  "example": "cityAndState"
+                },
+                "religion": {
+                  "type": "string",
+                  "example": "religon"
+                },
+                "smallGroup": {
+                  "type": "string",
+                  "example": "smallGroup"
+                },
+                "bibleStudy": {
+                  "type": "string",
+                  "example": "bibleStudy"
+                },
+                "createdAt": {
+                  "type": "string",
+                  "example": "2023-12-18T18:12:30.436Z"
+                },
+                "updatedAt": {
+                  "type": "string",
+                  "example": "2023-12-18T18:12:30.436Z"
+                },
+                "visits": {
+                  "type": "array",
+                  "example": [],
+                  "items": {}
+                },
+                "_count": {
+                  "type": "object",
+                  "properties": {
+                    "visits": {
+                      "type": "number",
+                      "example": 0
+                    }
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
           }
         }
       }
     },
     "/api/visitantes/{id}": {
       "get": {
-        "description": "",
+        "tags": [
+          "Visitantes"
+        ],
+        "summary": "Mostra apenas um visitante baseado no id informado.",
+        "description": "Mostra apenas um visitante baseado no id informado.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
         "responses": {
-          "default": {
-            "description": ""
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "example": "Ed"
+                },
+                "id": {
+                  "type": "string",
+                  "example": "65808b8eeb9b0c4212971c64"
+                },
+                "phone": {
+                  "type": "string",
+                  "example": "5561992781077"
+                },
+                "gender": {
+                  "type": "string",
+                  "example": "masculino"
+                },
+                "age": {
+                  "type": "number",
+                  "example": 30
+                },
+                "cityAndState": {
+                  "type": "string",
+                  "example": "cityAndState"
+                },
+                "religion": {
+                  "type": "string",
+                  "example": "religon"
+                },
+                "smallGroup": {
+                  "type": "string",
+                  "example": "smallGroup"
+                },
+                "bibleStudy": {
+                  "type": "string",
+                  "example": "bibleStudy"
+                },
+                "createdAt": {
+                  "type": "string",
+                  "example": "2023-12-18T18:12:30.436Z"
+                },
+                "updatedAt": {
+                  "type": "string",
+                  "example": "2023-12-18T18:12:30.436Z"
+                },
+                "visits": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "visitDate": {
+                        "type": "string",
+                        "example": "25/12/2024"
+                      },
+                      "id": {
+                        "type": "string",
+                        "example": "65808c0b65189e5f65c6577d"
+                      }
+                    }
+                  }
+                },
+                "_count": {
+                  "type": "object",
+                  "properties": {
+                    "visits": {
+                      "type": "number",
+                      "example": 0
+                    }
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
           }
         }
       },
       "patch": {
-        "description": "",
+        "tags": [
+          "Visitantes"
+        ],
+        "summary": "Atualizado os dados de um visitante existente baseado no id informado.",
+        "description": "Atualizado os dados de um visitante existente baseado no id informado.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
         "responses": {
-          "default": {
-            "description": ""
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "example": "Ed"
+                },
+                "id": {
+                  "type": "string",
+                  "example": "65808b8eeb9b0c4212971c64"
+                },
+                "phone": {
+                  "type": "string",
+                  "example": "5561992781077"
+                },
+                "gender": {
+                  "type": "string",
+                  "example": "masculino"
+                },
+                "age": {
+                  "type": "number",
+                  "example": 30
+                },
+                "cityAndState": {
+                  "type": "string",
+                  "example": "cityAndState"
+                },
+                "religion": {
+                  "type": "string",
+                  "example": "religon"
+                },
+                "smallGroup": {
+                  "type": "string",
+                  "example": "smallGroup"
+                },
+                "bibleStudy": {
+                  "type": "string",
+                  "example": "bibleStudy"
+                },
+                "createdAt": {
+                  "type": "string",
+                  "example": "2023-12-18T18:12:30.436Z"
+                },
+                "updatedAt": {
+                  "type": "string",
+                  "example": "2023-12-18T18:12:30.436Z"
+                },
+                "visits": {
+                  "type": "array",
+                  "example": [],
+                  "items": {}
+                },
+                "_count": {
+                  "type": "object",
+                  "properties": {
+                    "visits": {
+                      "type": "number",
+                      "example": 0
+                    }
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
           }
         }
       },
       "delete": {
-        "description": "",
+        "tags": [
+          "Visitantes"
+        ],
+        "summary": "Apaga um visitante existente baseado no id informado.",
+        "description": "Apaga um visitante existente baseado no id informado.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
         "responses": {
-          "default": {
-            "description": ""
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "example": "Ed"
+                },
+                "id": {
+                  "type": "string",
+                  "example": "65808b8eeb9b0c4212971c64"
+                },
+                "phone": {
+                  "type": "string",
+                  "example": "5561992781077"
+                },
+                "gender": {
+                  "type": "string",
+                  "example": "masculino"
+                },
+                "age": {
+                  "type": "number",
+                  "example": 30
+                },
+                "cityAndState": {
+                  "type": "string",
+                  "example": "cityAndState"
+                },
+                "religion": {
+                  "type": "string",
+                  "example": "religon"
+                },
+                "smallGroup": {
+                  "type": "string",
+                  "example": "smallGroup"
+                },
+                "bibleStudy": {
+                  "type": "string",
+                  "example": "bibleStudy"
+                },
+                "createdAt": {
+                  "type": "string",
+                  "example": "2023-12-18T18:12:30.436Z"
+                },
+                "updatedAt": {
+                  "type": "string",
+                  "example": "2023-12-18T18:12:30.436Z"
+                },
+                "visits": {
+                  "type": "array",
+                  "example": [],
+                  "items": {}
+                },
+                "_count": {
+                  "type": "object",
+                  "properties": {
+                    "visits": {
+                      "type": "number",
+                      "example": 0
+                    }
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
           }
         }
       }
     },
     "/api/visitas": {
       "get": {
-        "description": "",
+        "tags": [
+          "Visitas"
+        ],
+        "summary": "Lista todas as visitas existentes.",
+        "description": "Lista todas as visitas existentes.",
         "responses": {
-          "default": {
-            "description": ""
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "visitDate": {
+                  "type": "string",
+                  "example": "25/12/2024"
+                },
+                "id": {
+                  "type": "string",
+                  "example": "65808c0b65189e5f65c6577d"
+                },
+                "visitante": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "example": "Ed"
+                    },
+                    "id": {
+                      "type": "string",
+                      "example": "65808b8eeb9b0c4212971c64"
+                    }
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
           }
         }
       },
       "post": {
-        "description": "",
+        "tags": [
+          "Visitas"
+        ],
+        "summary": "Cria uma nova visita.",
+        "description": "Cria uma nova visita.",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Payload",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "visitDate": {
+                  "type": "string",
+                  "example": "10/10/2023"
+                },
+                "visitanteId": {
+                  "type": "string",
+                  "example": "65808b8eeb9b0c4212971c64"
+                }
+              },
+              "required": [
+                "visitDate",
+                "visitanteId"
+              ]
+            }
+          }
+        ],
         "responses": {
-          "default": {
-            "description": ""
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "visitDate": {
+                  "type": "string",
+                  "example": "25/12/2024"
+                },
+                "id": {
+                  "type": "string",
+                  "example": "65808c0b65189e5f65c6577d"
+                },
+                "createdAt": {
+                  "type": "string",
+                  "example": "2023-12-18T18:14:35.214Z"
+                },
+                "updatedAt": {
+                  "type": "string",
+                  "example": "2023-12-18T18:14:35.214Z"
+                },
+                "visitante": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "example": "Ed"
+                    },
+                    "id": {
+                      "type": "string",
+                      "example": "65808b8eeb9b0c4212971c64"
+                    },
+                    "visits": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "visitDate": {
+                            "type": "string",
+                            "example": "25/12/2024"
+                          }
+                        }
+                      }
+                    },
+                    "_count": {
+                      "type": "object",
+                      "properties": {
+                        "visits": {
+                          "type": "number",
+                          "example": 1
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
           }
         }
       }
     },
     "/api/visitas/{id}": {
       "get": {
-        "description": "",
+        "tags": [
+          "Visitas"
+        ],
+        "summary": "Mostra apenas uma visita baseado no id informado.",
+        "description": "Mostra apenas uma visita baseado no id informado.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
         "responses": {
-          "default": {
-            "description": ""
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "visitDate": {
+                  "type": "string",
+                  "example": "25/12/2024"
+                },
+                "id": {
+                  "type": "string",
+                  "example": "65808c0b65189e5f65c6577d"
+                },
+                "createdAt": {
+                  "type": "string",
+                  "example": "2023-12-18T18:14:35.214Z"
+                },
+                "updatedAt": {
+                  "type": "string",
+                  "example": "2023-12-18T18:14:35.214Z"
+                },
+                "visitante": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "example": "Ed"
+                    },
+                    "id": {
+                      "type": "string",
+                      "example": "65808b8eeb9b0c4212971c64"
+                    },
+                    "visits": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "visitDate": {
+                            "type": "string",
+                            "example": "25/12/2024"
+                          }
+                        }
+                      }
+                    },
+                    "_count": {
+                      "type": "object",
+                      "properties": {
+                        "visits": {
+                          "type": "number",
+                          "example": 1
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
           }
         }
       },
       "patch": {
-        "description": "",
+        "tags": [
+          "Visitas"
+        ],
+        "summary": "Atualizado os dados de uma visita existente baseado no id informado.",
+        "description": "Atualizado os dados de uma visita existente baseado no id informado.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
         "responses": {
-          "default": {
-            "description": ""
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "visitDate": {
+                  "type": "string",
+                  "example": "25/12/2024"
+                },
+                "id": {
+                  "type": "string",
+                  "example": "65808c0b65189e5f65c6577d"
+                },
+                "createdAt": {
+                  "type": "string",
+                  "example": "2023-12-18T18:14:35.214Z"
+                },
+                "updatedAt": {
+                  "type": "string",
+                  "example": "2023-12-18T18:14:35.214Z"
+                },
+                "visitante": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "example": "Ed"
+                    },
+                    "id": {
+                      "type": "string",
+                      "example": "65808b8eeb9b0c4212971c64"
+                    },
+                    "visits": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "visitDate": {
+                            "type": "string",
+                            "example": "25/12/2024"
+                          }
+                        }
+                      }
+                    },
+                    "_count": {
+                      "type": "object",
+                      "properties": {
+                        "visits": {
+                          "type": "number",
+                          "example": 1
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
           }
         }
       },
       "delete": {
+        "tags": [
+          "Visitas"
+        ],
+        "summary": "Apaga um visita existente baseado no id informado.",
+        "description": "Apaga um visita existente baseado no id informado.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "visitDate": {
+                  "type": "string",
+                  "example": "25/12/2024"
+                },
+                "id": {
+                  "type": "string",
+                  "example": "65808c0b65189e5f65c6577d"
+                },
+                "createdAt": {
+                  "type": "string",
+                  "example": "2023-12-18T18:14:35.214Z"
+                },
+                "updatedAt": {
+                  "type": "string",
+                  "example": "2023-12-18T18:14:35.214Z"
+                },
+                "visitante": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "example": "Ed"
+                    },
+                    "id": {
+                      "type": "string",
+                      "example": "65808b8eeb9b0c4212971c64"
+                    },
+                    "visits": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "visitDate": {
+                            "type": "string",
+                            "example": "25/12/2024"
+                          }
+                        }
+                      }
+                    },
+                    "_count": {
+                      "type": "object",
+                      "properties": {
+                        "visits": {
+                          "type": "number",
+                          "example": 1
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/": {
+      "get": {
+        "tags": [
+          "Index"
+        ],
+        "summary": "Mostra status do servidor, documentação e rotas.",
         "description": "",
         "responses": {
-          "default": {
-            "description": ""
+          "200": {
+            "description": "OK"
           }
         }
       }

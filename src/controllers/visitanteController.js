@@ -92,32 +92,32 @@ class VisitanteController {
         return response.status(400).json({ error: "The payload is empty." });
       }
 
-      const foundUser = await prismaClient.visitante.findFirst({
-        where: {
+      // const foundUser = await prismaClient.visitante.findFirst({
+      //   where: {
+      //     name,
+      //   },
+      // });
+
+      // if (!foundUser) {
+
+      const newUser = await prismaClient.visitante.create({
+        data: {
           name,
+          phone,
+          address,
+          cityAndState,
+          age,
+          gender,
+          religion,
+          smallGroup,
+          bibleStudy,
         },
       });
 
-      if (!foundUser) {
-        const newUser = await prismaClient.visitante.create({
-          data: {
-            name,
-            visitsCount,
-            phone,
-            address,
-            cityAndState,
-            age,
-            gender,
-            religion,
-            smallGroup,
-            bibleStudy,
-          },
-        });
-
-        return response.status(201).json(newUser);
-      } else {
-        return response.status(400).json({ error: "User already created." });
-      }
+      return response.status(201).json(newUser);
+      // } else {
+      //   return response.status(400).json({ error: "User already created." });
+      // }
     } catch (error) {
       logger.error(error);
       return response.status(500).json({ message: error.message });

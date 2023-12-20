@@ -21,7 +21,7 @@ app.get("/", (request, response) => {
   // #swagger.tags = ['Index']
   // #swagger.summary = 'Mostra status do servidor, documentação e rotas.'
   response.status(200).send({
-    status: "Server OK",
+    status: "Server Ok",
     doc: "/doc",
     routes: {
       visitantes: "/api/visitantes",

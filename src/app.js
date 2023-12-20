@@ -2,16 +2,16 @@ const swaggerUi = require("swagger-ui-express");
 const swaggerFile = require("../swagger-output.json");
 const express = require("express");
 const router = require("./routers/routes.js");
-// const cors = require("cors");
+const cors = require("cors");
+
+const corsOptions = {
+  origin: "http://localhost:3000",
+};
 
 const app = express();
 
 app.use(express.json());
-// app.use(
-//   cors({
-//     origin: "*",
-//   })
-// );
+app.use(cors(corsOptions));
 app.use(router);
 
 app.use("/doc", swaggerUi.serve, swaggerUi.setup(swaggerFile));

@@ -28,5 +28,5 @@ jobs:
       env:
         DATABASE_URL: ${{ secrets.DATABASE_URL }}
         DEPLOY_URL: ${{ secrets.DEPLOY_URL }}
-      run: npm run test-ci
+      run: npm test-ci
     - run: npm start &

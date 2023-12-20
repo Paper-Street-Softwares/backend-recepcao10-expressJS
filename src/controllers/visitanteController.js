@@ -123,7 +123,6 @@ class VisitanteController {
       const { id } = request.params;
       const {
         name,
-        visitsCount,
         phone,
         address,
         cityAndState,
@@ -133,6 +132,22 @@ class VisitanteController {
         smallGroup,
         bibleStudy,
       } = request.body;
+
+      if (
+        !name &&
+        !phone &&
+        !address &&
+        !cityAndState &&
+        !age &&
+        !gender &&
+        !religion &&
+        !smallGroup &&
+        !bibleStudy
+      ) {
+        return response
+          .status(400)
+          .json({ error: "At least on required field must be informed." });
+      }
 
       const foundUser = await prismaClient.visitante.findFirst({
         where: {
@@ -144,7 +159,6 @@ class VisitanteController {
         const updatedUser = await prismaClient.visitante.update({
           data: {
             name,
-            visitsCount,
             phone,
             address,
             cityAndState,

@@ -103,6 +103,21 @@ visitanteRouter.patch(
   // #swagger.tags = ['Visitantes']
   // #swagger.summary = 'Atualizado os dados de um visitante existente baseado no id informado.'
   // #swagger.description = 'Atualizado os dados de um visitante existente baseado no id informado.'
+  /*  #swagger.parameters['body'] = {
+            in: 'body',
+            description: 'Payload',
+            schema: {
+  "name": "Ed",
+  "phone": "5561992781077",
+  "gender": "Masculino",
+  "age": 30,
+  "address": "Endereço",
+  "cityAndState": "São Paulo - SP",
+  "religion": "Adventista",
+  "smallGroup": "Não frequenta",
+  "bibleStudy": "Sim, com amigo",
+  }} 
+  */
   /* #swagger.responses[200] = {
             description: 'OK',
             schema: {

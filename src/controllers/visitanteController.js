@@ -87,6 +87,11 @@ class VisitanteController {
       //     .status(400)
       //     .json({ error: "All required fields must be informed." });
       // }
+
+      if (request.body === {}) {
+        return response.status(400).json({ error: "The payload is empty." });
+      }
+
       const foundUser = await prismaClient.visitante.findFirst({
         where: {
           name,

@@ -1,6 +1,7 @@
 const { request, response } = require("express");
 const { prismaClient } = require("../app/db/prisma/prismaClient.js");
 const logger = require("../app/logs/logger.js");
+const objectID = require("mongodb").ObjectId;
 
 class VisitanteController {
   async findAll(request, response) {
@@ -25,32 +26,43 @@ class VisitanteController {
   async findOne(request, response) {
     try {
       const { id } = request.params;
-      const userFound = await prismaClient.visitante.findFirst({
-        select: {
-          name: true,
-          id: true,
-          phone: true,
-          gender: true,
-          age: true,
-          address: true,
-          cityAndState: true,
-          religion: true,
-          smallGroup: true,
-          bibleStudy: true,
-          createdAt: true,
-          updatedAt: true,
-          visits: { select: { visitDate: true, id: true } },
-          _count: true,
-        },
-        where: {
-          id,
-        },
-      });
 
-      if (userFound) {
-        return response.status(200).json(userFound);
+      if (objectID.isValid(id)) {
+        const userFound = await prismaClient.visitante.findFirst({
+          select: {
+            name: true,
+            id: true,
+            phone: true,
+            gender: true,
+            age: true,
+            address: true,
+            cityAndState: true,
+            religion: true,
+            smallGroup: true,
+            bibleStudy: true,
+            createdAt: true,
+            updatedAt: true,
+            visits: { select: { visitDate: true, id: true } },
+            _count: true,
+          },
+          where: {
+            id,
+          },
+        });
+
+        if (userFound) {
+          return response.status(200).json(userFound);
+        } else {
+          return response.status(400).json({
+            error:
+              "User not found. Check if the ID matches with a existent user.",
+          });
+        }
       } else {
-        return response.status(400).json({ error: "User not found." });
+        return response.status(400).json({
+          error:
+            "User not found. Check if the ID matches with a existent user.",
+        });
       }
     } catch (error) {
       logger.error(error);
@@ -121,60 +133,68 @@ class VisitanteController {
   async update(request, response) {
     try {
       const { id } = request.params;
-      const {
-        name,
-        phone,
-        address,
-        cityAndState,
-        age,
-        gender,
-        religion,
-        smallGroup,
-        bibleStudy,
-      } = request.body;
 
-      if (
-        !name &&
-        !phone &&
-        !address &&
-        !cityAndState &&
-        !age &&
-        !gender &&
-        !religion &&
-        !smallGroup &&
-        !bibleStudy
-      ) {
-        return response
-          .status(400)
-          .json({ error: "At least on required field must be informed." });
-      }
+      if (objectID.isValid(id)) {
+        const {
+          name,
+          phone,
+          address,
+          cityAndState,
+          age,
+          gender,
+          religion,
+          smallGroup,
+          bibleStudy,
+        } = request.body;
 
-      const foundUser = await prismaClient.visitante.findFirst({
-        where: {
-          id,
-        },
-      });
+        if (
+          !name &&
+          !phone &&
+          !address &&
+          !cityAndState &&
+          !age &&
+          !gender &&
+          !religion &&
+          !smallGroup &&
+          !bibleStudy
+        ) {
+          return response
+            .status(400)
+            .json({ error: "At least on required field must be informed." });
+        }
 
-      if (foundUser) {
-        const updatedUser = await prismaClient.visitante.update({
-          data: {
-            name,
-            phone,
-            address,
-            cityAndState,
-            age,
-            gender,
-            religion,
-            smallGroup,
-            bibleStudy,
-          },
+        const foundUser = await prismaClient.visitante.findFirst({
           where: {
             id,
           },
         });
-        return response.status(200).json(updatedUser);
+
+        if (foundUser) {
+          const updatedUser = await prismaClient.visitante.update({
+            data: {
+              name,
+              phone,
+              address,
+              cityAndState,
+              age,
+              gender,
+              religion,
+              smallGroup,
+              bibleStudy,
+            },
+            where: {
+              id,
+            },
+          });
+          return response.status(200).json(updatedUser);
+        } else {
+          return response.status(400).json({ error: "User not found." });
+        }
       } else {
-        return response.status(400).json({ error: "User not found." });
+        return response.status(400).json({
+          error:
+            "User not found. Check if the ID matches with a existent user.",
+        });
       }
     } catch (error) {
       logger.error(error);
@@ -186,22 +206,29 @@ class VisitanteController {
     try {
       const { id } = request.params;
 
-      const userFound = await prismaClient.visitante.findFirst({
-        where: {
-          id,
-        },
-      });
-
-      if (userFound) {
-        const deletedUser = await prismaClient.visitante.delete({
+      if (objectID.isValid(id)) {
+        const userFound = await prismaClient.visitante.findFirst({
           where: {
             id,
           },
         });
 
-        return response.status(200).json(deletedUser);
+        if (userFound) {
+          const deletedUser = await prismaClient.visitante.delete({
+            where: {
+              id,
+            },
+          });
+
+          return response.status(200).json(deletedUser);
+        } else {
+          return response.status(400).json({ error: "User not found." });
+        }
       } else {
-        return response.status(400).json({ error: "User not found." });
+        return response.status(400).json({
+          error:
+            "User not found. Check if the ID matches with a existent user.",
+        });
       }
     } catch (error) {
       logger.error(error);

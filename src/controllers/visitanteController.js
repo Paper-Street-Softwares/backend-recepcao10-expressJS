@@ -72,21 +72,21 @@ class VisitanteController {
         smallGroup,
         bibleStudy,
       } = request.body;
-      if (
-        !name ||
-        !phone ||
-        !address ||
-        !cityAndState ||
-        !age ||
-        !gender ||
-        !religion ||
-        !smallGroup ||
-        !bibleStudy
-      ) {
-        return response
-          .status(400)
-          .json({ error: "All required fields must be informed." });
-      }
+      // if (
+      //   !name ||
+      //   !phone ||
+      //   !address ||
+      //   !cityAndState ||
+      //   !age ||
+      //   !gender ||
+      //   !religion ||
+      //   !smallGroup ||
+      //   !bibleStudy
+      // ) {
+      //   return response
+      //     .status(400)
+      //     .json({ error: "All required fields must be informed." });
+      // }
       const foundUser = await prismaClient.visitante.findFirst({
         where: {
           name,

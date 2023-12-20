@@ -5,7 +5,7 @@ const router = require("./routers/routes.js");
 const cors = require("cors");
 
 const corsOptions = {
-  origin: "http://localhost:3000",
+  origin: ["http://localhost:3000", "http://localhost:3000/"],
 };
 
 const app = express();

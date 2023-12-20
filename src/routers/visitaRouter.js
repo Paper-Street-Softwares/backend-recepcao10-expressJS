@@ -87,6 +87,13 @@ visitaRouter.patch(
   // #swagger.tags = ['Visitas']
   // #swagger.summary = 'Atualizado os dados de uma visita existente baseado no id informado.'
   // #swagger.description = 'Atualizado os dados de uma visita existente baseado no id informado.'
+  /*  #swagger.parameters['body'] = {
+            in: 'body',
+            description: 'Payload',
+            schema: {
+  "visitDate": "10/10/2023"
+  }} 
+  */
   /* #swagger.responses[200] = {
             description: 'OK',
             schema:   

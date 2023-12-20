@@ -309,6 +309,52 @@
             "in": "path",
             "required": true,
             "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Payload",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "example": "Ed"
+                },
+                "phone": {
+                  "type": "string",
+                  "example": "5561992781077"
+                },
+                "gender": {
+                  "type": "string",
+                  "example": "Masculino"
+                },
+                "age": {
+                  "type": "number",
+                  "example": 30
+                },
+                "address": {
+                  "type": "string",
+                  "example": "Endereço"
+                },
+                "cityAndState": {
+                  "type": "string",
+                  "example": "São Paulo - SP"
+                },
+                "religion": {
+                  "type": "string",
+                  "example": "Adventista"
+                },
+                "smallGroup": {
+                  "type": "string",
+                  "example": "Não frequenta"
+                },
+                "bibleStudy": {
+                  "type": "string",
+                  "example": "Sim, com amigo"
+                }
+              }
+            }
           }
         ],
         "responses": {
@@ -698,6 +744,20 @@
             "in": "path",
             "required": true,
             "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Payload",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "visitDate": {
+                  "type": "string",
+                  "example": "10/10/2023"
+                }
+              }
+            }
           }
         ],
         "responses": {

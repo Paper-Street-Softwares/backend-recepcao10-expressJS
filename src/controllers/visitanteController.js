@@ -62,7 +62,6 @@ class VisitanteController {
     try {
       const {
         name,
-        visitsCount,
         phone,
         address,
         cityAndState,

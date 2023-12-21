@@ -9,7 +9,7 @@ beforeAll(async () => {
     data: {
       name: "testUserFindOne",
       email: "testeuserfindone@email.com",
-      password: "password",
+      password: "password2",
     },
   });
 
@@ -46,7 +46,7 @@ describe("/POST api/users create", () => {
     const res = await request(app).post("/api/users/").send({
       name: "testUserCreate",
       email: "testuserpost@email.com",
-      password: "password",
+      password: "password2",
     });
     expect(res.statusCode).toEqual(200);
   });

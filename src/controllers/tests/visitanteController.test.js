@@ -1,8 +1,8 @@
 const request = require("supertest");
-const app = require("../app.js");
-const logger = require("../app/logs/logger.js");
-const { prismaClient } = require("../app/db/prisma/prismaClient.js");
-const VisitanteController = require("./visitanteController.js");
+const app = require("../../app.js");
+const { prismaClient } = require("../../app/db/prisma/prismaClient.js");
+const logger = require("../../app/logs/logger.js");
+const VisitanteController = require("../visitanteController.js");
 
 const visitanteController = new VisitanteController();
 const idToTestFindById = "65808b8eeb9b0c4212971c64";
@@ -98,32 +98,6 @@ afterEach(async () => {
     });
   }
 });
-
-// Testes de existência dos métodos executados pelo Controller
-
-describe("Test de visitanteController", () => {
-  it("Verifica se método findOne está definida", () => {
-    expect(visitanteController.findOne).toBeDefined();
-  });
-
-  it("Verifica se método findAll está definida", () => {
-    expect(visitanteController.findAll).toBeDefined();
-  });
-
-  it("Verifica se método create está definida", () => {
-    expect(visitanteController.create).toBeDefined();
-  });
-
-  it("Verifica se método update está definida", () => {
-    expect(visitanteController.update).toBeDefined();
-  });
-
-  it("Verifica se método delete está definida", () => {
-    expect(visitanteController.findOne).toBeDefined();
-  });
-});
-
-// Teste das requisicoes
 
 describe("/POST /name create()", () => {
   it("Deve criar a entidade e retornar statusCode 201", async () => {

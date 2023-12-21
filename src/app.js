@@ -24,6 +24,7 @@ app.get("/", (request, response) => {
     status: "Server Ok",
     doc: "/doc",
     routes: {
+      users: "/api/users",
       visitantes: "/api/visitantes",
       visitas: "/api/visitas",
     },

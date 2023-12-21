@@ -1,8 +1,8 @@
 const request = require("supertest");
-const app = require("../app.js");
-const logger = require("../app/logs/logger.js");
-const { prismaClient } = require("../app/db/prisma/prismaClient.js");
-const VisitaController = require("../controllers/visitaController.js");
+const app = require("../../app.js");
+const { prismaClient } = require("../../app/db/prisma/prismaClient.js");
+const logger = require("../../app/logs/logger.js");
+const VisitaController = require("../visitaController.js");
 
 const visitaController = new VisitaController();
 const idToTestFindById = "65808b8eeb9b0c4212971c64";
@@ -95,32 +95,6 @@ afterAll(async () => {
     });
   }
 });
-
-// Teste do visitaController
-
-describe("Test de visitaController", () => {
-  it("Verifica se método findOne está definida", () => {
-    expect(visitaController.findOne).toBeDefined();
-  });
-
-  it("Verifica se método findAll está definida", () => {
-    expect(visitaController.findAll).toBeDefined();
-  });
-
-  it("Verifica se método create está definida", () => {
-    expect(visitaController.create).toBeDefined();
-  });
-
-  it("Verifica se método update está definida", () => {
-    expect(visitaController.update).toBeDefined();
-  });
-
-  it("Verifica se método delete está definida", () => {
-    expect(visitaController.findOne).toBeDefined();
-  });
-});
-
-// Teste das requisicoes
 
 describe("/POST /api/visitas create()", () => {
   it("Cria a entidade e retorna startusCode 200", async () => {

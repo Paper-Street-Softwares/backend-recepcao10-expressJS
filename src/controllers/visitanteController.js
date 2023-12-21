@@ -223,12 +223,10 @@ class VisitanteController {
 
           return response.status(200).json(deletedUser);
         } else {
-          return response
-            .status(400)
-            .json({
-              error:
-                "User not found. Check if the ID matches with a existent user.",
-            });
+          return response.status(400).json({
+            error:
+              "User not found. Check if the ID matches with a existent user.",
+          });
         }
       } else {
         return response.status(400).json({

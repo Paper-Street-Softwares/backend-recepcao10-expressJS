@@ -1,6 +1,6 @@
 const request = require("supertest");
-const app = require("../app.js");
-const { prismaClient } = require("../app/db/prisma/prismaClient.js");
+const app = require("../../app.js");
+const { prismaClient } = require("../../app/db/prisma/prismaClient.js");
 
 let testUserID;
 

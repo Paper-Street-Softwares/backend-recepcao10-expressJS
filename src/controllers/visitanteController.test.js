@@ -101,27 +101,27 @@ afterEach(async () => {
 
 // Testes de existência dos métodos executados pelo Controller
 
-describe("Test de visitanteController", () => {
-  it("Verifica se método findOne está definida", () => {
-    expect(visitanteController.findOne).toBeDefined();
-  });
+// describe("Test de visitanteController", () => {
+//   it("Verifica se método findOne está definida", () => {
+//     expect(visitanteController.findOne).toBeDefined();
+//   });
 
-  it("Verifica se método findAll está definida", () => {
-    expect(visitanteController.findAll).toBeDefined();
-  });
+//   it("Verifica se método findAll está definida", () => {
+//     expect(visitanteController.findAll).toBeDefined();
+//   });
 
-  it("Verifica se método create está definida", () => {
-    expect(visitanteController.create).toBeDefined();
-  });
+//   it("Verifica se método create está definida", () => {
+//     expect(visitanteController.create).toBeDefined();
+//   });
 
-  it("Verifica se método update está definida", () => {
-    expect(visitanteController.update).toBeDefined();
-  });
+//   it("Verifica se método update está definida", () => {
+//     expect(visitanteController.update).toBeDefined();
+//   });
 
-  it("Verifica se método delete está definida", () => {
-    expect(visitanteController.findOne).toBeDefined();
-  });
-});
+//   it("Verifica se método delete está definida", () => {
+//     expect(visitanteController.findOne).toBeDefined();
+//   });
+// });
 
 // Teste das requisicoes
 

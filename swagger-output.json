@@ -11,6 +11,290 @@
     "https"
   ],
   "paths": {
+    "/api/users": {
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Lista todas os usuários existentes.",
+        "description": "Lista todos os usuários existentes.",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "example": "65808c0b65189e5f65c6577d"
+                },
+                "name": {
+                  "type": "string",
+                  "example": "Ed"
+                },
+                "email": {
+                  "type": "string",
+                  "example": "email@email.com"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Cria um novo usuário.",
+        "description": "Cria um novo usuário.",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Payload",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "example": "Ed"
+                },
+                "email": {
+                  "type": "string",
+                  "example": "email@email.com"
+                },
+                "password": {
+                  "type": "string",
+                  "example": "password"
+                }
+              },
+              "required": [
+                "name",
+                "email",
+                "password"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "example": "65808b8eeb9b0c4212971c64"
+                },
+                "name": {
+                  "type": "string",
+                  "example": "Ed"
+                },
+                "email": {
+                  "type": "string",
+                  "example": "email@email.com"
+                },
+                "password": {
+                  "type": "string",
+                  "example": "password"
+                },
+                "createdAt": {
+                  "type": "string",
+                  "example": "2023-12-18T18:12:30.436Z"
+                },
+                "updatedAt": {
+                  "type": "string",
+                  "example": "2023-12-18T18:12:30.436Z"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/users/{id}": {
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Mostra apenas um usuário baseado no id informado.",
+        "description": "Mostra apenas um usuário baseado no id informado.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "example": "65808b8eeb9b0c4212971c64"
+                },
+                "name": {
+                  "type": "string",
+                  "example": "Edison"
+                },
+                "email": {
+                  "type": "string",
+                  "example": "email@email.com"
+                },
+                "createdAt": {
+                  "type": "string",
+                  "example": "2023-12-18T18:12:30.436Z"
+                },
+                "updatedAt": {
+                  "type": "string",
+                  "example": "2023-12-18T18:12:30.436Z"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Atualiza os dados de um usuário existente baseado no id informado.",
+        "description": "Atualiza os dados de um visitante existente baseado no id informado.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Payload",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "example": "Ed"
+                },
+                "email": {
+                  "type": "string",
+                  "example": "email@email.com"
+                },
+                "password": {
+                  "type": "string",
+                  "example": "password"
+                }
+              },
+              "required": [
+                "name",
+                "email",
+                "password"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "example": "65808b8eeb9b0c4212971c64"
+                },
+                "name": {
+                  "type": "string",
+                  "example": "Ed"
+                },
+                "email": {
+                  "type": "string",
+                  "example": "email@email.com"
+                },
+                "password": {
+                  "type": "string",
+                  "example": "password"
+                },
+                "createdAt": {
+                  "type": "string",
+                  "example": "2023-12-18T18:12:30.436Z"
+                },
+                "updatedAt": {
+                  "type": "string",
+                  "example": "2023-12-18T18:12:30.436Z"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Apaga um usuário existente baseado no id informado.",
+        "description": "Apaga um usuário existente baseado no id informado.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "example": "65808b8eeb9b0c4212971c64"
+                },
+                "name": {
+                  "type": "string",
+                  "example": "Edison"
+                },
+                "email": {
+                  "type": "string",
+                  "example": "email@email.com"
+                },
+                "createdAt": {
+                  "type": "string",
+                  "example": "2023-12-18T18:12:30.436Z"
+                },
+                "updatedAt": {
+                  "type": "string",
+                  "example": "2023-12-18T18:12:30.436Z"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/visitantes": {
       "get": {
         "tags": [

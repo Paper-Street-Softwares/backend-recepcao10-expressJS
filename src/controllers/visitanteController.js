@@ -23,7 +23,6 @@ class VisitanteController {
       return response.status(500).json({ message: error.message });
     }
   }
-
   async findOne(request, response) {
     try {
       const { id } = request.params;
@@ -70,7 +69,6 @@ class VisitanteController {
       return response.status(500).json({ message: error.message });
     }
   }
-
   async create(request, response) {
     try {
       const {
@@ -130,7 +128,6 @@ class VisitanteController {
       return response.status(500).json({ message: error.message });
     }
   }
-
   async update(request, response) {
     try {
       const { id } = request.params;
@@ -202,7 +199,6 @@ class VisitanteController {
       return response.status(500).json({ message: error.message });
     }
   }
-
   async delete(request, response) {
     try {
       const { id } = request.params;

@@ -1,6 +1,7 @@
 const { request, response } = require("express");
 const { prismaClient } = require("../app/db/prisma/prismaClient.js");
 const logger = require("../app/logs/logger.js");
+const { hash, genSalt, bcrypt } = require("bcrypt");
 const objectID = require("mongodb").ObjectId;
 
 class UserController {
@@ -61,6 +62,9 @@ class UserController {
     try {
       const { name, email, password } = request.body;
 
+      const salt = await genSalt(10);
+      const hashedPassword = await hash(password, salt);
+
       if (!name || !email || !password) {
         return response
           .status(400)
@@ -78,7 +82,14 @@ class UserController {
           data: {
             name,
             email,
-            password,
+            password: hashedPassword,
+          },
+          select: {
+            id: true,
+            name: true,
+            email: true,
+            createdAt: true,
+            updatedAt: true,
           },
         });
 

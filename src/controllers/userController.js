@@ -121,6 +121,13 @@ class UserController {
               email,
               password,
             },
+            select: {
+              id: true,
+              name: true,
+              email: true,
+              createdAt: true,
+              updatedAt: true,
+            },
             where: {
               id,
             },
@@ -157,6 +164,13 @@ class UserController {
 
         if (userFound) {
           const deletedUser = await prismaClient.user.delete({
+            select: {
+              id: true,
+              name: true,
+              email: true,
+              createdAt: true,
+              updatedAt: true,
+            },
             where: {
               id,
             },

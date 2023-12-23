@@ -1,6 +1,7 @@
 const { request, response } = require("express");
 const { prismaClient } = require("../app/db/prisma/prismaClient.js");
 const logger = require("../app/logs/logger.js");
+const bcrypt = require("bcrypt");
 
 class AuthController {
   async login(request, response) {
@@ -13,15 +14,22 @@ class AuthController {
         },
       });
 
-      if (password === findUser.password) {
-        return response.status(200).json({
-          status: "Usuário autenticado com sucesso!",
-          tokenJWT:
-            "$2b$12$u1qZPiqlqkMbhc/0/oepCO/41d.WslEbQfPr9rVV0Eh.ZDvgVEsAS$2b$12$u1qZPiqlqkMbhc/0/oepCO/41d.WslEbQfPr9rVV0Eh.ZDvgVEsAS$2b$12$u1qZPiqlqkMbhc/0/oepCO/41d.WslEbQfPr9rVV0Eh.ZDvgVEsAS$2b$12$u1qZPiqlqkMbhc/0/oepCO/41d.WslEbQfPr9rVV0Eh.ZDvgVEsAS$2b$12$u1qZPiqlqkMbhc/0/oepCO/41d.WslEbQfPr9rVV0Eh.ZDvgVEsAS$2b$12$u1qZPiqlqkMbhc/0/oepCO/41d.WslEbQfPr9rVV0Eh.ZDvgVEsAS",
-        });
-      } else {
-        return response.status(400).json({ status: "Falha na autenticação" });
-      }
+      bcrypt.compare(password, findUser.password, (err, result) => {
+        if (err) {
+          console.log(password);
+          console.log(findUser.password);
+          console.log("Error ao comparar senhas.", err);
+          return response.status(500).send({ error: err.message });
+        }
+
+        if (result) {
+          return response
+            .status(200)
+            .send({ status: "Autenticado com sucesso." });
+        } else {
+          return response.status(400).json({ error: "Falha na autenticação." });
+        }
+      });
     } catch (error) {
       logger.error(error);
       return response.status(500).json({ error: error.message });

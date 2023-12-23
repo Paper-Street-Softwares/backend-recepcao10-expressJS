@@ -1,10 +1,12 @@
 const UserController = require("../../controllers/userController.js");
 const VisitanteController = require("../../controllers/visitanteController.js");
 const VisitaController = require("../../controllers/visitaController.js");
+const AuthController = require("../../controllers/authController.js");
 
 const userController = new UserController();
 const visitanteController = new VisitanteController();
 const visitaController = new VisitaController();
+const authController = new AuthController();
 
 describe("Testa a existência dos métodos do UserController", () => {
   test("Mostrar existência do método findOne", () => {
@@ -69,5 +71,11 @@ describe("Testa a existência dos métodos do VisitaController", () => {
 
   test("Mostrar existência do método delete", () => {
     expect(visitaController.delete).toBeDefined();
+  });
+});
+
+describe("Testa a existência dos métodos do AuthController", () => {
+  test("Mostrar existência do método findOne", () => {
+    expect(authController.login).toBeDefined();
   });
 });

@@ -8,7 +8,7 @@ Este repositório contém o backend da aplicação Recepção Nota 10, responsá
 
 - **Node.js e npm:** Ambiente de execução e gerenciador de pacotes para JavaScript.
 - **Express:** Framework web para Node.js.
-- **Prisma:** ORM (Object-Relational Mapping) para interação com o banco de dados.
+- **Prisma:** ORM (Object-Relational Mapping) para mapeamento de banco de dados.
 - **Pino:** Biblioteca para logging.
 
 <br>

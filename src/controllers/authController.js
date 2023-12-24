@@ -30,11 +30,10 @@ class AuthController {
         }
 
         if (result) {
-          return response
-            .status(200)
-            .send({ status: "Autenticado com sucesso.", token: token });
+          response.header("Authorization", `Bearer ${token}`);
+          response.status(200).send({ status: "Autenticado com sucesso." });
         } else {
-          return response.status(400).json({ error: "Falha na autenticação." });
+          response.status(400).json({ error: "Falha na autenticação." });
         }
       });
     } catch (error) {

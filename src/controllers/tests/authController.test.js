@@ -33,6 +33,7 @@ describe("/POST /auth login()", () => {
       password: "testpassword",
     });
 
+    console.log(res.header);
     expect(res.statusCode).toEqual(200);
   });
 
@@ -42,6 +43,6 @@ describe("/POST /auth login()", () => {
       password: "testpassword",
     });
 
-    expect(res.body.token).toBeDefined();
+    expect(res.header.authorization).toBeDefined();
   });
 });

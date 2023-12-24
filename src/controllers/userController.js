@@ -107,6 +107,9 @@ class UserController {
       const { id } = request.params;
       const { name, email, password } = request.body;
 
+      const salt = await genSalt(10);
+      const hashedPassword = await hash(password, salt);
+
       if (objectID.isValid(id)) {
         const foundUser = await prismaClient.user.findFirst({
           where: {
@@ -119,7 +122,14 @@ class UserController {
             data: {
               name,
               email,
-              password,
+              password: hashedPassword,
+            },
+            select: {
+              id: true,
+              name: true,
+              email: true,
+              createdAt: true,
+              updatedAt: true,
             },
             where: {
               id,
@@ -157,6 +167,13 @@ class UserController {
 
         if (userFound) {
           const deletedUser = await prismaClient.user.delete({
+            select: {
+              id: true,
+              name: true,
+              email: true,
+              createdAt: true,
+              updatedAt: true,
+            },
             where: {
               id,
             },

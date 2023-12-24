@@ -158,7 +158,7 @@ class VisitanteController {
         ) {
           return response
             .status(400)
-            .json({ error: "At least on required field must be informed." });
+            .json({ error: "At least one required field must be informed." });
         }
 
         const foundUser = await prismaClient.visitante.findFirst({

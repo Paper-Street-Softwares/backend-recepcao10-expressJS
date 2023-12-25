@@ -33,7 +33,6 @@ describe("/POST /auth login()", () => {
       password: "testpassword",
     });
 
-    console.log(res.header);
     expect(res.statusCode).toEqual(200);
   });
 

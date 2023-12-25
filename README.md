@@ -46,13 +46,19 @@ Este repositório contém o backend da aplicação Recepção Nota 10, responsá
 
    Substitua `sua_url_do_banco_de_dados_mongodb` pela URL do seu banco de dados MongoDB.
 
-4. **Iniciar o Projeto em Ambiente de Desenvolvimento**
+4. **Iniciar o Prisma**
+
+    ```bash
+    npx prisma generate
+    ```
+
+5. **Iniciar o Projeto em Ambiente de Desenvolvimento**
 
     ```bash
     npm run dev
     ```
 
-5. **Executar Testes**
+6. **Executar Testes**
 
     ```bash
     npm test

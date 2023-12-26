@@ -12,7 +12,7 @@ beforeAll(async () => {
 
   const findFindOneTestUser = await prismaClient.visita.findFirst({
     where: {
-      visitDate: "findOneTestUser",
+      visitDate: "2023-01-01",
     },
   });
 
@@ -20,16 +20,16 @@ beforeAll(async () => {
     const res = await request(app)
       .post("/api/visitas")
       .send({
-        visitDate: "findOneTestUser",
+        visitDate: "2023-01-01",
         visitanteId: `${idToTestFindById}`,
       });
   }
 
-  // Create deleteTestUser
+  // Create 2023-01-02
 
   const findDeleteTestUser = await prismaClient.visita.findFirst({
     where: {
-      visitDate: "deleteTestUser",
+      visitDate: "2023-01-02",
     },
   });
 
@@ -37,7 +37,7 @@ beforeAll(async () => {
     const res = await request(app)
       .post("/api/visitas")
       .send({
-        visitDate: "deleteTestUser",
+        visitDate: "2023-01-02",
         visitanteId: `${idToTestFindById}`,
       });
   }
@@ -48,7 +48,7 @@ afterAll(async () => {
 
   const locateIdFindOneTestUser = await prismaClient.visita.findFirst({
     where: {
-      visitDate: "findOneTestUser",
+      visitDate: "2023-01-01",
     },
   });
 
@@ -61,11 +61,11 @@ afterAll(async () => {
     });
   }
 
-  // Delete createTestUser
+  // Delete 2023-01-03
 
   const locateIdCreateTestUser = await prismaClient.visita.findFirst({
     where: {
-      visitDate: "createTestUser",
+      visitDate: "2023-01-03",
     },
   });
 
@@ -78,11 +78,11 @@ afterAll(async () => {
     });
   }
 
-  // Delete deleteTestUser
+  // Delete 2023-01-02
 
   const locateIdDeleteTestUser = await prismaClient.visita.findFirst({
     where: {
-      visitDate: "deleteTestUser",
+      visitDate: "2023-01-02",
     },
   });
 
@@ -101,7 +101,7 @@ describe("/POST /api/visitas create()", () => {
     const res = await request(app)
       .post("/api/visitas/")
       .send({
-        visitDate: "createTestUser",
+        visitDate: "2023-01-03",
         visitanteId: `${idToTestFindById}`,
       });
     expect(res.statusCode).toEqual(200);
@@ -119,7 +119,7 @@ describe("/GET /api/visitas/:id findOne()", () => {
   it("Localiza a entidade pelo id e retorna statusCode 200", async () => {
     const findFindOneTestUser = await prismaClient.visita.findFirst({
       where: {
-        visitDate: "findOneTestUser",
+        visitDate: "2023-01-01",
       },
     });
 
@@ -135,14 +135,14 @@ describe("/PATCH /api/visitas/:id update()", () => {
   it("Deve atualizar as informações das entidade e retornar statuscode 200", async () => {
     const user = await prismaClient.visita.findFirst({
       where: {
-        visitDate: "findOneTestUser",
+        visitDate: "2023-01-01",
       },
     });
 
     const { id } = user;
 
     const res = await request(app).patch(`/api/visitas/${id}`).send({
-      visitDate: "findOneTestUser",
+      visitDate: "2023-01-01",
     });
 
     expect(res.statusCode).toEqual(200);
@@ -153,7 +153,7 @@ describe("/DELETE /api/visitas/:id delete()", () => {
   it("Apaga a entidade pelo id e retorna statuscode 200", async () => {
     const findDeleteTestUser = await prismaClient.visita.findFirst({
       where: {
-        visitDate: "deleteTestUser",
+        visitDate: "2023-01-02",
       },
     });
 

@@ -1,7 +1,8 @@
 const { request, response } = require("express");
 const { prismaClient } = require("../app/db/prisma/prismaClient.js");
-const logger = require("../app/logs/logger.js");
+const { userSchema } = require("../app/validation/userSchema.js");
 const { hash, genSalt, bcrypt } = require("bcrypt");
+const logger = require("../app/logs/logger.js");
 const objectID = require("mongodb").ObjectId;
 
 class UserController {
@@ -62,40 +63,42 @@ class UserController {
     try {
       const { name, email, password } = request.body;
 
-      const salt = await genSalt(10);
-      const hashedPassword = await hash(password, salt);
+      const { error } = await userSchema.validate(request.body);
 
-      if (!name || !email || !password) {
-        return response
+      if (error) {
+        response
           .status(400)
-          .json({ message: "All required field must be informed." });
-      }
+          .json({ error: error.details.map((detail) => detail.message) });
+      } else {
+        const salt = await genSalt(10);
+        const hashedPassword = await hash(password, salt);
 
-      const foundUser = await prismaClient.user.findFirst({
-        where: {
-          email,
-        },
-      });
-
-      if (!foundUser) {
-        const newUser = await prismaClient.user.create({
-          data: {
-            name,
+        const foundUser = await prismaClient.user.findFirst({
+          where: {
             email,
-            password: hashedPassword,
-          },
-          select: {
-            id: true,
-            name: true,
-            email: true,
-            createdAt: true,
-            updatedAt: true,
           },
         });
 
-        return response.status(200).send(newUser);
-      } else {
-        return response.status(400).json({ error: "User already created." });
+        if (!foundUser) {
+          const newUser = await prismaClient.user.create({
+            data: {
+              name,
+              email,
+              password: hashedPassword,
+            },
+            select: {
+              id: true,
+              name: true,
+              email: true,
+              createdAt: true,
+              updatedAt: true,
+            },
+          });
+
+          return response.status(200).send(newUser);
+        } else {
+          return response.status(400).json({ error: "User already created." });
+        }
       }
     } catch (error) {
       logger.error(error);
@@ -107,8 +110,14 @@ class UserController {
       const { id } = request.params;
       const { name, email, password } = request.body;
 
-      const salt = await genSalt(10);
-      const hashedPassword = await hash(password, salt);
+      let hashedPassword;
+
+      if (password) {
+        const salt = await genSalt(10);
+        const hashPassword = await hash(password, salt);
+
+        hashedPassword = hashPassword;
+      }
 
       if (objectID.isValid(id)) {
         const foundUser = await prismaClient.user.findFirst({

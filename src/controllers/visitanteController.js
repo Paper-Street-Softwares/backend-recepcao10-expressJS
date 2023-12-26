@@ -1,5 +1,6 @@
 const { request, response } = require("express");
 const { prismaClient } = require("../app/db/prisma/prismaClient.js");
+const { visitanteSchema } = require("../app/validation/visitanteSchema.js");
 const logger = require("../app/logs/logger.js");
 const objectID = require("mongodb").ObjectId;
 
@@ -82,46 +83,39 @@ class VisitanteController {
         smallGroup,
         bibleStudy,
       } = request.body;
-      if (
-        !name ||
-        !phone ||
-        !address ||
-        !cityAndState ||
-        !age ||
-        !gender ||
-        !religion ||
-        !smallGroup ||
-        !bibleStudy
-      ) {
-        return response
+
+      const { error } = visitanteSchema.validate(request.body);
+
+      if (error) {
+        response
           .status(400)
-          .json({ error: "All required fields must be informed." });
-      }
-
-      const foundUser = await prismaClient.visitante.findFirst({
-        where: {
-          name,
-        },
-      });
-
-      if (!foundUser) {
-        const newUser = await prismaClient.visitante.create({
-          data: {
+          .json({ error: error.details.map((detail) => detail.message) });
+      } else {
+        const foundUser = await prismaClient.visitante.findFirst({
+          where: {
             name,
-            phone,
-            address,
-            cityAndState,
-            age,
-            gender,
-            religion,
-            smallGroup,
-            bibleStudy,
           },
         });
 
-        return response.status(201).json(newUser);
-      } else {
-        return response.status(400).json({ error: "User already created." });
+        if (!foundUser) {
+          const newUser = await prismaClient.visitante.create({
+            data: {
+              name,
+              phone,
+              address,
+              cityAndState,
+              age,
+              gender,
+              religion,
+              smallGroup,
+              bibleStudy,
+            },
+          });
+
+          return response.status(201).json(newUser);
+        } else {
+          return response.status(400).json({ error: "User already created." });
+        }
       }
     } catch (error) {
       logger.error(error);

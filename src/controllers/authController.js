@@ -24,8 +24,6 @@ class AuthController {
 
         bcrypt.compare(password, findUser.password, (err, result) => {
           if (err) {
-            console.log(password);
-            console.log(findUser.password);
             console.log("Error ao comparar senhas.", err);
             return response.status(500).send({ error: err.message });
           }

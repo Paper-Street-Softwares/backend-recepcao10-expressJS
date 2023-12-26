@@ -107,8 +107,14 @@ class UserController {
       const { id } = request.params;
       const { name, email, password } = request.body;
 
-      const salt = await genSalt(10);
-      const hashedPassword = await hash(password, salt);
+      let hashedPassword;
+
+      if (password) {
+        const salt = await genSalt(10);
+        const hashPassword = await hash(password, salt);
+
+        hashedPassword = hashPassword;
+      }
 
       if (objectID.isValid(id)) {
         const foundUser = await prismaClient.user.findFirst({

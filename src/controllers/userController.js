@@ -63,7 +63,7 @@ class UserController {
     try {
       const { name, email, password } = request.body;
 
-      const { error, value } = await userSchema.validate(request.body);
+      const { error } = await userSchema.validate(request.body);
 
       if (error) {
         response

@@ -2,6 +2,7 @@ const { request, response } = require("express");
 const { prismaClient } = require("../app/db/prisma/prismaClient.js");
 const { authSchema } = require("../app/validation/authSchema.js");
 const logger = require("../app/logs/logger.js");
+const nodemailer = require("nodemailer");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
@@ -49,6 +50,59 @@ class AuthController {
       }
     } catch (error) {
       logger.error(error);
+      return response.status(500).json({ error: error.message });
+    }
+  }
+
+  async recoveryPassowrd(request, response) {
+    try {
+      const { email } = request.body;
+
+      if (!email) {
+        return response
+          .status(400)
+          .json({ error: "You need to fill your email." });
+      }
+
+      const token = email;
+      const resetLink = `http://localhost:3000/auth/reset?token=${token}`;
+
+      const transporter = nodemailer.createTransport({
+        service: "gmail",
+        auth: {
+          user: "proj.se.recep10@gmail.com",
+          pass: "aaskwozrbcisuirj",
+        },
+      });
+
+      const mailOptions = {
+        from: "proj.se.recep10@gmail.com",
+        to: email,
+        subject: "Redefinição de Senha - Recepção Nota 10",
+        text: `Olá, tudo bem? Recebemos uma solicitação de mudança de senha para sua conta. Para prosseguir, clique no link a seguir: ${resetLink}`,
+      };
+
+      transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+          console.log(error);
+        } else {
+          console.log("Email enviado" + info.response);
+          return response.status(200).json({ status: "Message sent" });
+        }
+      });
+    } catch (error) {
+      return response.status(500).json({ error: error.message });
+    }
+  }
+
+  async resetPassword(request, response) {
+    try {
+      const { token } = request.query;
+
+      return response.status(200).json({
+        status: `Mudança de senha autorizada para ${token}`,
+      });
+    } catch (error) {
       return response.status(500).json({ error: error.message });
     }
   }

@@ -66,7 +66,7 @@ class AuthController {
 
       const token = email;
       const backendBaseUrl = process.env.BACK_DEPLOY_URL;
-      const resetLink = `${backendBaseUrl}/auth/reset-password/${token}`;
+      const resetLink = `${backendBaseUrl}auth/reset-password/${token}`;
 
       const transporter = nodemailer.createTransport({
         service: "gmail",

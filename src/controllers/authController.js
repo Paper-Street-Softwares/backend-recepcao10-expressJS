@@ -54,7 +54,7 @@ class AuthController {
     }
   }
 
-  async recoveryPassowrd(request, response) {
+  async forgotPassword(request, response) {
     try {
       const { email } = request.body;
 
@@ -65,7 +65,7 @@ class AuthController {
       }
 
       const token = email;
-      const resetLink = `http://localhost:3000/auth/reset?token=${token}`;
+      const resetLink = `http://localhost:3000/auth/reset-password/${token}`;
 
       const transporter = nodemailer.createTransport({
         service: "gmail",
@@ -86,7 +86,6 @@ class AuthController {
         if (error) {
           console.log(error);
         } else {
-          console.log("Email enviado" + info.response);
           return response.status(200).json({ status: "Message sent" });
         }
       });
@@ -95,13 +94,40 @@ class AuthController {
     }
   }
 
-  async resetPassword(request, response) {
+  async checkToken(request, response) {
     try {
-      const { token } = request.query;
+      const { token } = request.params;
+      console.log("Autorizado.");
 
-      return response.status(200).json({
-        status: `Mudança de senha autorizada para ${token}`,
+      return response.redirect(`http://localhost:3001/reset-password/${token}`);
+    } catch (error) {
+      return response.status(500).json({ error: error.message });
+    }
+  }
+
+  async newPassword(request, response) {
+    try {
+      const { token } = request.params;
+      const { newPassword } = request.body;
+
+      const foundByEmail = await prismaClient.user.findFirst({
+        where: {
+          email: token,
+        },
       });
+
+      if (foundByEmail) {
+        const setNewPassword = await prismaClient.user.updateMany({
+          data: {
+            password: newPassword,
+          },
+          where: {
+            email: token,
+          },
+        });
+
+        return response.status(200).json({ status: "Password updated." });
+      }
     } catch (error) {
       return response.status(500).json({ error: error.message });
     }

@@ -111,15 +111,20 @@ class VisitanteController {
               bibleStudy,
             },
           });
-
           return response.status(201).json(newUser);
         } else {
           return response.status(400).json({ error: "User already created." });
         }
       }
     } catch (error) {
-      logger.error(error);
-      return response.status(500).json({ message: error.message });
+      if (error.code === "P2002") {
+        return response
+          .status(400)
+          .json({ errorDB: "Phone number already registered." });
+      } else {
+        logger.error(error);
+        return response.status(500).json({ message: error.message });
+      }
     }
   }
   async update(request, response) {

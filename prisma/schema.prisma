@@ -20,7 +20,7 @@ model visitante {
   id           String   @id @default(auto()) @map("_id") @db.ObjectId
   name         String?
   visits       visita[]
-  phone        String?
+  phone        String? @unique
   gender       String?
   age          Int?
   address      String?

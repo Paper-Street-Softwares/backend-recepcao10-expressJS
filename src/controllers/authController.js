@@ -65,8 +65,8 @@ class AuthController {
       }
 
       const token = email;
-      const deploy = process.env.DEPLOY_URL;
-      const resetLink = `${deploy}/auth/reset-password/${token}`;
+      const backendBaseUrl = process.env.BACK_DEPLOY_URL;
+      const resetLink = `${backendBaseUrl}/auth/reset-password/${token}`;
 
       const transporter = nodemailer.createTransport({
         service: "gmail",
@@ -100,7 +100,8 @@ class AuthController {
       const { token } = request.params;
       console.log("Autorizado.");
 
-      return response.redirect(`reset-password/${token}`);
+      const frontBaseUrl = process.env.FRONT_DEPLOY_URL;
+      return response.redirect(`${frontBaseUrl}reset-password/${token}`);
     } catch (error) {
       return response.status(500).json({ error: error.message });
     }

@@ -93,7 +93,7 @@ class VisitanteController {
       } else {
         const foundUser = await prismaClient.visitante.findFirst({
           where: {
-            name,
+            phone,
           },
         });
 

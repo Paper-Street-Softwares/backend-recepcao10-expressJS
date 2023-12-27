@@ -2,6 +2,7 @@ const { request, response } = require("express");
 const { prismaClient } = require("../app/db/prisma/prismaClient.js");
 const { authSchema } = require("../app/validation/authSchema.js");
 const logger = require("../app/logs/logger.js");
+const nodemailer = require("nodemailer");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
@@ -49,6 +50,44 @@ class AuthController {
       }
     } catch (error) {
       logger.error(error);
+      return response.status(500).json({ error: error.message });
+    }
+  }
+
+  async recoveryPassowrd(request, response) {
+    try {
+      const { email } = request.body;
+
+      if (!email) {
+        return response
+          .status(400)
+          .json({ error: "You need to fill your email." });
+      }
+
+      const transporter = nodemailer.createTransport({
+        service: "gmail",
+        auth: {
+          user: "proj.se.recep10@gmail.com",
+          pass: "aaskwozrbcisuirj",
+        },
+      });
+
+      const mailOptions = {
+        from: "proj.se.recep10@gmail.com",
+        to: email,
+        subject: "Redefinição de Senha - Recepção Nota 10",
+        text: "Olá, tudo bem? Recebemos uma solicitação de mudança de senha para sua conta. Para prosseguir, clique no link a seguir: www.recepcao10.com/recovery$12dasdsad1231dsadsa1231",
+      };
+
+      transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+          console.log(error);
+        } else {
+          console.log("Email enviado" + info.response);
+          return response.status(200).json({ status: "Message sent" });
+        }
+      });
+    } catch (error) {
       return response.status(500).json({ error: error.message });
     }
   }

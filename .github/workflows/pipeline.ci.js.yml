@@ -29,5 +29,6 @@ jobs:
         DATABASE_URL: ${{ secrets.DATABASE_URL }}
         DEPLOY_URL: ${{ secrets.DEPLOY_URL }}
         SECRET_JWT: ${{ secrets.SECRET_JWT }}
+        SECRET_CRYPTO: ${{ secrets.SECRET_CRYPTO }}
       run: npm run test-ci
     - run: npm start &

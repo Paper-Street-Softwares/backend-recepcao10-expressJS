@@ -5,6 +5,7 @@ const logger = require("../app/logs/logger.js");
 const nodemailer = require("nodemailer");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const { crypt, decode } = require("../app/crypto/crypt.js");
 
 class AuthController {
   async login(request, response) {
@@ -64,7 +65,9 @@ class AuthController {
           .json({ error: "You need to fill your email." });
       }
 
-      const token = email;
+      const cryptText = crypt(email);
+
+      const token = cryptText.encryptedText;
       const backendBaseUrl = process.env.BACK_DEPLOY_URL;
       const resetLink = `${backendBaseUrl}auth/reset-password/${token}`;
 
